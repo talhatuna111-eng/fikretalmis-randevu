@@ -7,32 +7,153 @@
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a0a">
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #0a0a0a; --card: #141414; --gold: #D4AF37; --text: #e0e0e0; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; margin: 0; padding: 20px; text-align: center; }
-        h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin-top: 30px; letter-spacing: 1px; }
-        .subtitle { color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px; }
-        
-        .service-card { 
-            background: var(--card); border: 1px solid #333; padding: 20px; margin-bottom: 15px; border-radius: 12px; 
-            cursor: pointer; transition: 0.3s; text-align: left; position: relative;
+        :root {
+            --bg: #0a0a0a; 
+            --card: #141414; 
+            --gold: #D4AF37; 
+            --text: #e0e0e0;
+            --error: #b71c1c;
         }
-        .service-card.selected { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
-        .price { float: right; color: var(--gold); font-family: 'Playfair Display', serif; font-weight: bold; font-size: 1.2rem; }
-        
-        input, select { 
-            width: 100%; padding: 15px; margin-top: 10px; background: #1a1a1a; border: 1px solid #333; color: #fff; 
-            border-radius: 8px; font-size: 1rem; outline: none; box-sizing: border-box;
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            padding-bottom: 50px;
         }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-top: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* Hizmet Kartları */
+        .service-card {
+            background: var(--card);
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .service-card.selected {
+            border-color: var(--gold);
+            background: #1a1a1a;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .service-card h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #fff; }
+        .service-card p { margin: 0; font-size: 0.8rem; color: #888; }
+        .price {
+            float: right;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Saat Seçimi */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .time-btn {
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .time-btn.selected {
+            background: var(--gold);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--gold);
+        }
+
+        .time-btn.disabled {
+            background: rgba(183, 28, 28, 0.2);
+            color: #666;
+            border-color: #330000;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Form Elemanları */
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+
         input:focus { border-color: var(--gold); }
         
-        .btn-gold { 
-            background: linear-gradient(45deg, #b8860b, #d4af37); color: #000; width: 100%; padding: 18px; 
-            border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer;
+        /* Tarih Seçici Özelleştirme */
+        input[type="date"] {
+            color-scheme: dark;
         }
+
+        .btn-main {
+            background: linear-gradient(45deg, #b8860b, #d4af37);
+            color: #000;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-main:disabled { opacity: 0.5; cursor: wait; }
+
         .hidden { display: none; }
+        .section-title { color: #fff; margin-top: 0; font-size: 1rem; text-align: left; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        
+        #slotMsg { color: var(--gold); font-size: 0.9rem; margin: 10px 0; font-style: italic; }
     </style>
 </head>
 <body>
@@ -40,76 +161,179 @@
     <h1>FİKRET ALMIŞ</h1>
     <p class="subtitle">Exclusive Gentlemen's Club</p>
 
-    <div id="services">
-        <div class="service-card" onclick="select(this, 'VIP Saç Kesimi', '750₺')">
+    <div id="step1">
+        <h3 class="section-title">HİZMET SEÇİNİZ</h3>
+        
+        <div class="service-card" onclick="selectService('VIP Saç Kesimi', '750₺', this)">
             <span class="price">750₺</span>
             <h3>VIP Saç Kesimi</h3>
-            <p style="font-size:0.8rem; color:#888;">Yıkama, masaj ve şekillendirme.</p>
+            <p>Yıkama, masaj ve şekillendirme dahil.</p>
         </div>
-        <div class="service-card" onclick="select(this, 'Sakal Tasarımı', '400₺')">
+
+        <div class="service-card" onclick="selectService('Sakal Tasarımı', '400₺', this)">
             <span class="price">400₺</span>
             <h3>Sakal Tasarımı</h3>
-            <p style="font-size:0.8rem; color:#888;">Sıcak havlu ve ustura ile.</p>
+            <p>Sıcak havlu kompresi ve ustura ile.</p>
         </div>
-        <div class="service-card" onclick="select(this, 'Full Bakım', '1000₺')">
+
+        <div class="service-card" onclick="selectService('Full Bakım', '1000₺', this)">
             <span class="price">1000₺</span>
             <h3>Full Bakım</h3>
-            <p style="font-size:0.8rem; color:#888;">Saç, sakal, cilt bakımı.</p>
+            <p>Saç, sakal ve cilt bakımı.</p>
         </div>
     </div>
 
-    <div id="formArea" class="hidden">
-        <h3 style="color:var(--gold); margin-top:30px;">Randevu Detayları</h3>
+    <div id="step2" class="hidden" style="margin-top: 40px;">
+        <h3 class="section-title">TARİH & SAAT</h3>
+        <input type="date" id="datePicker" onchange="loadSlots()">
+        
+        <p id="slotMsg" class="hidden">Saatler kontrol ediliyor...</p>
+        <div class="time-slots" id="slotsContainer"></div>
+    </div>
+
+    <div id="step3" class="hidden" style="margin-top: 40px;">
+        <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
         <input type="text" id="name" placeholder="Adınız Soyadınız">
-        <input type="text" id="phone" placeholder="Telefon Numaranız (Opsiyonel)">
-        <p style="text-align:left; color:#888; margin-top:15px; font-size:0.9rem;">Tarih ve Saat:</p>
-        <input type="datetime-local" id="date" style="color-scheme: dark;">
-        <button class="btn-gold" onclick="sendTelegram()">Randevu Oluştur</button>
+        <input type="text" id="phone" placeholder="Telefon (05XX...)">
+        
+        <button class="btn-main" onclick="bookAppointment()">Randevuyu Onayla</button>
     </div>
 
 <script>
-    // --- BURALARI DOLDUR ---
-    const BOT_TOKEN = "8584589679:AAEw2k44B-83KN3ji2OCpLT0VCkf-Rnud-g"; // Örn: "123456:ABC-Def..."
-    const CHAT_ID = "1903223368"; // Örn: "123456789"
-    // -----------------------
-
+    // SENİN GÜNCEL URL'İN BURAYA EKLENDİ
+    const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
+    
     let selectedService = "";
-    let selectedPrice = "";
+    let selectedDate = "";
+    let selectedTime = "";
 
-    function select(el, service, price) {
+    function selectService(name, price, el) {
         document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
-        selectedService = service;
-        selectedPrice = price;
-        document.getElementById('formArea').classList.remove('hidden');
-        document.getElementById('formArea').scrollIntoView({behavior: 'smooth'});
+        
+        selectedService = name + " (" + price + ")";
+        
+        // Adım 2'yi aç
+        document.getElementById('step2').classList.remove('hidden');
+        
+        // Tarih seçiciye bugünü ata
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('datePicker');
+        if(!dateInput.value) {
+            dateInput.value = today;
+            dateInput.min = today;
+            loadSlots(); // Bugünün saatlerini getir
+        }
+        
+        document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
     }
 
-    function sendTelegram() {
+    function loadSlots() {
+        const dateVal = document.getElementById('datePicker').value;
+        if(!dateVal) return;
+        selectedDate = dateVal;
+        
+        const container = document.getElementById('slotsContainer');
+        const msg = document.getElementById('slotMsg');
+        
+        container.innerHTML = "";
+        msg.classList.remove('hidden');
+        msg.innerText = "Müsaitlik durumu kontrol ediliyor...";
+
+        // Google Sheet'ten verileri çek (GET İsteği)
+        fetch(API_URL)
+        .then(res => res.json())
+        .then(bookedList => {
+            msg.classList.add('hidden');
+            
+            // Çalışma Saatleri: 10:00 ile 22:00 arası
+            const hours = [
+                "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", 
+                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"
+            ];
+            
+            hours.forEach(time => {
+                const btn = document.createElement('div');
+                btn.className = 'time-btn';
+                btn.innerText = time;
+                
+                // Kontrol Anahtarı: YYYY-MM-DD_HH:MM
+                const checkKey = selectedDate + "_" + time;
+                
+                // Eğer bu saat listede varsa kırmızı yap
+                if(bookedList.includes(checkKey)) {
+                    btn.classList.add('disabled');
+                    btn.innerText = time; // İstersen "DOLU" da yazdırabilirsin
+                } else {
+                    btn.onclick = () => selectTime(time, btn);
+                }
+                container.appendChild(btn);
+            });
+        })
+        .catch(err => {
+            msg.innerText = "Bağlantı hatası. Lütfen sayfayı yenileyin.";
+            console.error(err);
+        });
+    }
+
+    function selectTime(time, el) {
+        if(el.classList.contains('disabled')) return;
+        
+        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedTime = time;
+        
+        document.getElementById('step3').classList.remove('hidden');
+        document.getElementById('step3').scrollIntoView({behavior: 'smooth'});
+    }
+
+    function bookAppointment() {
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
-        const dateStr = document.getElementById('date').value;
-        const btn = document.querySelector('.btn-gold');
+        const btn = document.querySelector('.btn-main');
 
-        if (!name || !dateStr) { alert("Lütfen isim ve tarih giriniz."); return; }
+        if(!name || !phone) {
+            alert("Lütfen İsim ve Telefon giriniz.");
+            return;
+        }
 
-        btn.innerText = "İşleniyor...";
+        btn.innerText = "İŞLENİYOR...";
         btn.disabled = true;
 
-        const dateObj = new Date(dateStr);
-        const dateFormatted = dateObj.toLocaleString('tr-TR');
+        const data = {
+            tarih: selectedDate,
+            saat: selectedTime,
+            isim: name,
+            telefon: phone,
+            hizmet: selectedService
+        };
 
-        const text = `🚨 *YENİ RANDEVU!*%0A%0A✂️ *Hizmet:* ${selectedService} (${selectedPrice})%0A👤 *Müşteri:* ${name}%0A📱 *Tel:* ${phone}%0A📅 *Tarih:* ${dateFormatted}`;
-
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}&parse_mode=Markdown`)
-        .then(res => {
-            if(res.ok) {
-                alert("Randevunuz Fikret Bey'e iletildi!");
-                location.reload();
-            } else {
-                alert("Hata oluştu.");
-                btn.disabled = false;
+        // Google Sheet'e Kaydet (POST İsteği)
+        // 'text/plain' kullanarak Google Script CORS sorununu aşıyoruz
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
             }
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.status === "success") {
+                alert("Randevunuz başarıyla oluşturuldu! Teşekkürler.");
+                location.reload(); // Sayfayı yenile
+            } else {
+                alert("HATA: " + (response.message || "Bilinmeyen bir hata oluştu."));
+                btn.disabled = false;
+                btn.innerText = "TEKRAR DENE";
+                loadSlots(); // Belki o sırada biri kapmıştır, saatleri güncelle
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Sunucu hatası oluştu. Lütfen WhatsApp'tan yazın.");
+            btn.disabled = false;
+            btn.innerText = "TEKRAR DENE";
         });
     }
 </script>
