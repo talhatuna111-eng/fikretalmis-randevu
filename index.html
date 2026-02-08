@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Courier+New:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600;800&family=Courier+New:wght@700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -36,156 +36,78 @@
             position: relative;
         }
 
-        /* --- ALTIN TOZU ARKA PLANI --- */
-        #particles-js {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; 
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-        }
-
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* --- LOGO VE BAŞLIK DÜZENLEMESİ (SORUN BURADA ÇÖZÜLDÜ) --- */
-        .logo-img { 
-            width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); 
-            box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2);
-            object-fit: cover; background-color: #000; 
-            margin-top: 80px; /* LOGO AŞAĞI İTİLDİ (Eskisi 10px idi) */
-        }
-        
-        /* --- BUTON AYARI (SORUN BURADA ÇÖZÜLDÜ) --- */
-        .top-btn { 
-            position: absolute; 
-            top: 20px; /* DAHA YUKARI ALINDI (Eskisi 50px idi) */
-            left: 20px; 
-            color: var(--gold); 
-            background: linear-gradient(145deg, #1a1a1a, #111); 
-            box-shadow: var(--shadow-emboss); 
-            padding: 10px 18px; 
-            border-radius: 25px; 
-            font-size: 0.8rem; 
-            border: 1px solid rgba(212, 175, 55, 0.1); 
-            cursor: pointer;
-            z-index: 2000; 
-            touch-action: manipulation; 
-        }
+        /* PREFERENCES */
+        .pref-title { font-size: 0.9rem; color: var(--gold); margin: 20px 0 10px; text-align: left; text-transform: uppercase; letter-spacing: 1px; }
+        .pref-grid { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .pref-item { min-width: 80px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 10px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .pref-item.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+        .pref-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .pref-label { font-size: 0.7rem; color: #ccc; }
 
-        /* --- VIP KART TASARIMI --- */
+        /* VIP KART */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 10px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
-        .vip-card {
-            width: 100%; max-width: 340px; height: 200px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            border-radius: 15px; border: 1px solid #333; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: var(--gold);
-            text-align: left; padding: 25px; transition: transform 0.5s;
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
+        .vip-card { width: 100%; max-width: 340px; height: 200px; background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); border-radius: 15px; border: 1px solid #333; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: var(--gold); text-align: left; padding: 25px; transition: transform 0.5s; display: flex; flex-direction: column; justify-content: space-between; }
         .vip-card:hover { transform: translateY(-5px) rotateX(5deg); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); }
-        .vip-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
-            transform: rotate(45deg); animation: shine 4s infinite;
-        }
-        @keyframes shine { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
-        
+        .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%); transform: rotate(45deg); animation: shine 4s infinite; }
         .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .card-chip {
-            width: 45px; height: 35px; background: linear-gradient(135deg, #d4af37, #fdb931);
-            border-radius: 6px; position: relative; overflow: hidden;
-        }
+        .card-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #d4af37, #fdb931); border-radius: 6px; position: relative; overflow: hidden; }
         .card-chip::after { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(0,0,0,0.3); }
         .card-chip::before { content: ''; position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: rgba(0,0,0,0.3); }
         .card-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: bold; opacity: 0.9; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-
         .card-center { margin-top: 20px; }
-        .card-customer-name { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
-            margin-bottom: 5px; text-shadow: 0 2px 2px rgba(0,0,0,0.8);
-        }
-        .card-appointment-date {
-            font-family: 'Courier New', monospace; font-size: 1.1rem; font-weight: bold;
-            color: #fff; opacity: 0.8; letter-spacing: 2px;
-        }
+        .card-customer-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); }
+        .card-appointment-date { font-family: 'Courier New', monospace; font-size: 1.1rem; font-weight: bold; color: #fff; opacity: 0.8; letter-spacing: 2px; }
 
-        /* --- PRELOADER --- */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000; z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            flex-direction: column; transition: opacity 0.8s ease-out;
-        }
+        /* PRELOADER */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease-out; }
         .preloader-logo { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); animation: pulse 1.5s infinite; }
         .preloader-text { color: var(--gold); font-family: 'Playfair Display', serif; margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: fadeIn 2s; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
-        /* --- DUYURU BANDI --- */
-        .notification-bar {
-            background: linear-gradient(90deg, #b8860b, #FDB931);
-            color: #000; font-size: 0.85rem; font-weight: bold;
-            padding: 8px 0; width: 100%; position: relative; z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); overflow: hidden; white-space: nowrap;
-        }
+        .notification-bar { background: linear-gradient(90deg, #b8860b, #FDB931); color: #000; font-size: 0.85rem; font-weight: bold; padding: 8px 0; width: 100%; position: relative; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.5); overflow: hidden; white-space: nowrap; }
         .marquee { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
+        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2); object-fit: cover; background-color: #000; margin-top: 80px; }
         h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin: 25px 0 35px 0; letter-spacing: 2px; font-size: 2rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
 
         .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 45px; position: relative; z-index: 20;}
-        .icon-btn { 
-            color: #aaa; text-decoration: none; font-size: 0.9rem; padding: 12px 24px; border-radius: 30px; 
-            background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss);
-            border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
+        .icon-btn { color: #aaa; text-decoration: none; font-size: 0.9rem; padding: 12px 24px; border-radius: 30px; background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .icon-btn svg { fill: currentColor; }
         .icon-btn:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
 
-        /* KART TASARIMI (GLASS) */
-        .glass-card { 
-            background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss);
-            border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; 
-            cursor: pointer; transition: 0.3s ease; text-align: center; position: relative;
-            display: flex; justify-content: center; align-items: center; z-index: 20;
-        }
+        .glass-card { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; cursor: pointer; transition: 0.3s ease; text-align: center; position: relative; display: flex; justify-content: center; align-items: center; z-index: 20; }
         .glass-card:active { box-shadow: var(--shadow-inset); }
         .glass-card.selected { border-color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.01); }
         .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
 
-        .section-title { color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px; margin-top: 20px;}
+        .section-title { color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px; margin-top: 20px; color: var(--gold); }
         .card-title { font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-        .card-subtitle { font-size: 0.8rem; color: #888; margin-top: 5px; }
+        /* .card-subtitle { REMOVED } */
 
         .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; position: relative; z-index: 20;}
-        .time-btn { 
-            padding: 15px 5px; background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss); border: 1px solid rgba(255,255,255,0.03);
-            color: #fff; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
-        }
+        .time-btn { padding: 15px 5px; background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 1px solid rgba(255,255,255,0.03); color: #fff; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
         .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); transform: translateY(-2px); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
         input { width: 100%; padding: 18px; margin-top: 15px; background: #111; box-shadow: var(--shadow-inset); border: 1px solid rgba(255,255,255,0.05); color: #fff; border-radius: 12px; font-size: 1.1rem; outline: none; position: relative; z-index: 20;}
         input:focus { border-color: var(--gold); }
 
-        .btn-main { 
-            background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200%;
-            color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; text-transform: uppercase;
-            position: relative; z-index: 20;
-        }
+        .btn-main { background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200%; color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; text-transform: uppercase; position: relative; z-index: 20; }
         .btn-main:active { transform: scale(0.98); }
+
+        .top-btn { position: absolute; top: 20px; left: 20px; color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; z-index: 2000; touch-action: manipulation; }
 
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 9999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 10001;}
         .success-box { background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; }
         
-        .appt-item { 
-            background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; 
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .cancel-btn {
-            background: #330000; color: #ff4444; border: 1px solid #ff4444; padding: 8px 12px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; margin-left: 10px; z-index: 5;
-        }
+        .appt-item { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+        .cancel-btn { background: #330000; color: #ff4444; border: 1px solid #ff4444; padding: 8px 12px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; margin-left: 10px; z-index: 5; font-weight: bold; }
 
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -220,30 +142,20 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg> Konum
             </a>
             <a href="https://www.instagram.com/berberfikretalmis/" target="_blank" class="icon-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.244.048.78.036 1.203.166 1.485.276.374.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.114.047 3.244s-.008 2.401-.047 3.244c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.281.11-.704.24-1.485.276-.84.039-1.114.047-3.244.047s-2.401-.008-3.244-.047c-.78-.035-1.203-.166-1.485-.275a2.475 2.475 0 0 1-.919-.599 2.477 2.477 0 0 1-.599-.92c-.11-.281-.24-.704-.276-1.485-.039-.843-.047-1.114-.047-3.244s.008-2.401.047-3.244c.035-.78.166-1.203.276-1.485.145-.374.319-.64.599-.92.28-.28.546-.453.92-.598.281-.11.705-.24 1.485-.276.843-.039 1.114-.047 3.244-.047z"/><path d="M8 4.192a3.808 3.808 0 1 0 0 7.616 3.808 3.808 0 0 0 0-7.616zM8 10.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/><path d="M12.565 4.566a1.128 1.128 0 1 1-2.256 0 1.128 1.128 0 0 1 2.256 0z"/></svg>
-                Instagram
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.244.048.78.036 1.203.166 1.485.276.374.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.114.047 3.244s-.008 2.401-.047 3.244c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.281.11-.704.24-1.485.276-.84.039-1.114.047-3.244.047s-2.401-.008-3.244-.047c-.78-.035-1.203-.166-1.485-.275a2.475 2.475 0 0 1-.919-.599 2.477 2.477 0 0 1-.599-.92c-.11-.281-.24-.704-.276-1.485-.039-.843-.047-1.114-.047-3.244s.008-2.401.047-3.244c.035-.78.166-1.203.276-1.485.145-.374.319-.64.599-.92.28-.28.546-.453.92-.598.281-.11.705-.24 1.485-.276.843-.039 1.114-.047 3.244-.047z"/><path d="M8 4.192a3.808 3.808 0 1 0 0 7.616 3.808 3.808 0 0 0 0-7.616zM8 10.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/><path d="M12.565 4.566a1.128 1.128 0 1 1-2.256 0 1.128 1.128 0 0 1 2.256 0z"/></svg> Instagram
             </a>
         </div>
 
         <div id="step1" class="fade-in delay-2">
             <h3 class="section-title">KİMİNLE TIRAŞ OLMAK İSTERSİNİZ?</h3>
             <div class="glass-card" onclick="selectBarber('FİKRET ALMIŞ', this)">
-                <div>
-                    <div class="card-title">FİKRET ALMIŞ</div>
-                    <div class="card-subtitle">İşletme Sahibi</div>
-                </div>
+                <div><div class="card-title">FİKRET ALMIŞ</div></div>
             </div>
             <div class="glass-card" onclick="selectBarber('Alperen', this)">
-                <div>
-                    <div class="card-title">ALPEREN</div>
-                    <div class="card-subtitle">Profesyonel Saç Tasarım</div>
-                </div>
+                <div><div class="card-title">ALPEREN</div></div>
             </div>
             <div class="glass-card" onclick="selectBarber('Yunus', this)">
-                <div>
-                    <div class="card-title">YUNUS</div>
-                    <div class="card-subtitle">Profesyonel Saç Tasarım</div>
-                </div>
+                <div><div class="card-title">YUNUS</div></div>
             </div>
         </div>
 
@@ -263,7 +175,24 @@
         </div>
 
         <div id="step4" class="hidden fade-in">
-            <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
+            <h3 class="section-title">KONFOR TERCİHLERİNİZ</h3>
+            
+            <p class="pref-title">İkram Tercihiniz</p>
+            <div class="pref-grid" id="drinkSelect">
+                <div class="pref-item" onclick="selectPref('drink', 'Turk Kahvesi', this)"><div class="pref-icon">☕</div><div class="pref-label">Türk Kahvesi</div></div>
+                <div class="pref-item" onclick="selectPref('drink', 'Cay', this)"><div class="pref-icon">🍵</div><div class="pref-label">Çay</div></div>
+                <div class="pref-item" onclick="selectPref('drink', 'Soda', this)"><div class="pref-icon">🧊</div><div class="pref-label">Soda</div></div>
+                <div class="pref-item" onclick="selectPref('drink', 'Su', this)"><div class="pref-icon">💧</div><div class="pref-label">Su</div></div>
+                <div class="pref-item" onclick="selectPref('drink', 'Istemiyorum', this)"><div class="pref-icon">🚫</div><div class="pref-label">Yok</div></div>
+            </div>
+
+            <p class="pref-title">Tıraş Modu</p>
+            <div class="pref-grid" id="moodSelect">
+                <div class="pref-item" onclick="selectPref('mood', 'Sohbet', this)"><div class="pref-icon">🗣️</div><div class="pref-label">Sohbetli</div></div>
+                <div class="pref-item" onclick="selectPref('mood', 'Sessiz', this)"><div class="pref-icon">🤫</div><div class="pref-label">Sessiz / Relax</div></div>
+            </div>
+
+            <h3 class="section-title" style="margin-top:30px;">İLETİŞİM BİLGİLERİ</h3>
             <input type="text" id="name" placeholder="Adınız Soyadınız">
             <input type="tel" id="phone" placeholder="Telefon (5XX...) - Başında 0 olmadan">
             <button class="btn-main" onclick="bookAppointment()">RANDEVUYU ONAYLA</button>
@@ -293,46 +222,22 @@
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
-    // YÜKLEME VE EFEKT AYARLARI
     window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.getElementById('preloader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('preloader').style.display = 'none';
-            }, 800);
-        }, 1500);
-
-        // ALTIN TOZU EFEKTİ BAŞLAT
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 50 },
-                "color": { "value": "#d4af37" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "out_mode": "out" }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "bubble" },
-                    "onclick": { "enable": true, "mode": "repulse" },
-                    "resize": true
-                },
-                "modes": {
-                        "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 1 },
-                        "repulse": { "distance": 200, "duration": 0.4 }
-                }
-            },
-            "retina_detect": true
-        });
+        setTimeout(() => { document.getElementById('preloader').style.opacity = '0'; setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800); }, 1500);
+        particlesJS("particles-js", { "particles": { "number": { "value": 50 }, "color": { "value": "#d4af37" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "out_mode": "out" } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true }, "modes": { "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 1 }, "repulse": { "distance": 200, "duration": 0.4 } } }, "retina_detect": true });
     });
 
     let selectedBarber = "", selectedService = "", selectedDate = "", selectedTime = "";
+    let selectedDrink = "Istemiyorum", selectedMood = "Sohbet";
 
     function openMyApps() { document.getElementById('myAppsModal').classList.remove('hidden'); }
     function closeMyApps() { document.getElementById('myAppsModal').classList.add('hidden'); }
+
+    function selectPref(type, value, el) {
+        if(type === 'drink') { selectedDrink = value; document.querySelectorAll('#drinkSelect .pref-item').forEach(i => i.classList.remove('selected')); }
+        else { selectedMood = value; document.querySelectorAll('#moodSelect .pref-item').forEach(i => i.classList.remove('selected')); }
+        el.classList.add('selected');
+    }
 
     function selectBarber(name, el) {
         document.querySelectorAll('#step1 .glass-card').forEach(c => c.classList.remove('selected'));
@@ -355,25 +260,14 @@
         const dInput = document.getElementById('datePicker');
         const dVal = dInput.value;
         if(!dVal) return;
-        
         const dateObj = new Date(dVal);
-        if(dateObj.getDay() === 0) {
-            const msg = document.getElementById('slotMsg');
-            msg.classList.remove('hidden');
-            msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b>";
-            msg.style.color = "#ff4444";
-            dInput.value = ""; document.getElementById('slotsContainer').innerHTML = ""; return;
-        }
-
+        if(dateObj.getDay() === 0) { alert("Pazar günleri kapalıyız."); dInput.value = ""; document.getElementById('slotsContainer').innerHTML = ""; return; }
         selectedDate = dVal;
         const c = document.getElementById('slotsContainer');
         const m = document.getElementById('slotMsg');
         m.style.color = "var(--gold)";
         c.innerHTML = ""; m.classList.remove('hidden'); m.innerText = selectedBarber + " için müsaitlik bakılıyor...";
-        
-        fetch(API_URL + "?personel=" + encodeURIComponent(selectedBarber))
-        .then(res => res.json())
-        .then(booked => {
+        fetch(API_URL + "?personel=" + encodeURIComponent(selectedBarber)).then(res => res.json()).then(booked => {
             m.classList.add('hidden');
             const h = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"];
             h.forEach(t => {
@@ -397,21 +291,11 @@
         const p = document.getElementById('phone').value;
         const b = document.querySelector('.btn-main');
         if(!n || !p) { alert("Lütfen isim ve numara giriniz."); return; }
-        
-        // KONFETİ PATLATMA
-        confetti({
-            particleCount: 150,
-            spread: 100,
-            origin: { y: 0.6 },
-            colors: ['#d4af37', '#fdb931', '#ffffff']
-        });
-
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: ['#d4af37', '#fdb931', '#ffffff'] });
         b.innerText = "KAYDEDİLİYOR..."; b.disabled = true;
-        
-        const data = { tarih: selectedDate, saat: selectedTime, isim: n, telefon: p, hizmet: selectedService, personel: selectedBarber };
-        
-        fetch(API_URL, { method: "POST", body: JSON.stringify(data) })
-        .then(res => res.json()).then(res => {
+        const fullService = selectedService + " (" + selectedDrink + " - " + selectedMood + ")";
+        const data = { tarih: selectedDate, saat: selectedTime, isim: n, telefon: p, hizmet: fullService, personel: selectedBarber };
+        fetch(API_URL, { method: "POST", body: JSON.stringify(data) }).then(res => res.json()).then(res => {
             if(res.status === "success") {
                 document.getElementById('step1').classList.add('hidden');
                 document.getElementById('step2').classList.add('hidden');
@@ -428,52 +312,38 @@
         const phone = document.getElementById('searchPhone').value;
         const listDiv = document.getElementById('myAppsList');
         if(phone.length < 3) { alert("Numara giriniz."); return; }
-        
         listDiv.innerHTML = '<p style="color:var(--gold); font-size:1.1rem;">Bilgileriniz getiriliyor...</p>';
-        fetch(API_URL + "?action=check_my_appointments&phone=" + phone)
-        .then(res => res.json())
-        .then(data => {
+        fetch(API_URL + "?action=check_my_appointments&phone=" + phone).then(res => res.json()).then(data => {
             listDiv.innerHTML = "";
             if(data.length === 0) listDiv.innerHTML = "<p style='color:#fff; font-size:1.1rem;'>Kayıt bulunamadı.</p>";
             else {
                 let customerName = "DEĞERLİ MÜŞTERİ";
                 if(data[0].isim) customerName = data[0].isim.toUpperCase();
-                
                 let rawDate = data[0].tarih.split('-'); 
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let lastDate = fixDate + " • " + data[0].saat;
-
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
-                        <div class="card-top">
-                            <div class="card-chip"></div>
-                            <div class="card-brand">FİKRET ALMIŞ</div>
-                        </div>
-                        <div class="card-center">
-                            <div class="card-customer-name">${customerName}</div>
-                            <div class="card-appointment-date">${lastDate}</div>
-                        </div>
+                        <div class="card-top"><div class="card-chip"></div><div class="card-brand">FİKRET ALMIŞ</div></div>
+                        <div class="card-center"><div class="card-customer-name">${customerName}</div><div class="card-appointment-date">${lastDate}</div></div>
                     </div>
                 </div>
                 <h3 class="section-title" style="margin-top:0;">GEÇMİŞ İŞLEMLER</h3>`;
-                
                 listDiv.innerHTML = vipCardHTML;
-
                 data.forEach(appt => {
                     listDiv.innerHTML += `
                     <div class="appt-item fade-in">
                         <div>
-                            <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
-                            <div style="color:#fff; font-size:1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
-                            <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
+                            <div style="font-weight:bold; font-size:1.1rem; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
+                            <div style="color:#fff; font-weight:bold; font-size:1.1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
+                            <div style="color:#fff; font-weight:600; font-size:1rem;">${appt.hizmet}</div>
                         </div>
                         <button class="cancel-btn" onclick="cancelAppointment('${appt.tarih}', '${appt.saat}', '${phone}')">İPTAL ET</button>
                     </div>`;
                 });
             }
-        })
-        .catch(err => { listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>"; });
+        }).catch(err => { listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>"; });
     }
 
     function cancelAppointment(date, time, phone) {
