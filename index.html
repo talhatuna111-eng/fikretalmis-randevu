@@ -3,243 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>Fikret Almış</title>
     <meta name="apple-mobile-web-app-title" content="Fikret Almış">
     
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
     <link rel="manifest" href="manifest.json">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0a0a0a">
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #0a0a0a; --card: #141414; --gold: #D4AF37; --text: #e0e0e0; --error: #b71c1c; }
+        :root { --bg: #0a0a0a; --card: #141414; --gold: #D4AF37; --text: #e0e0e0; }
         * { box-sizing: border-box; }
-        
-        html { scroll-behavior: smooth; } 
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; margin: 0; padding: 20px; text-align: center; padding-bottom: 80px; }
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            text-align: center; 
-            padding-bottom: 80px;
-            overflow-x: hidden;
-        }
+        .logo-img { width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--gold); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+        h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin-top: 15px; }
 
-        .logo-container { 
-            margin-bottom: 15px; 
-            margin-top: 10px; 
-            height: 165px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .logo-img { 
-            width: 160px; 
-            height: 160px; 
-            border-radius: 50%; 
-            border: 2px solid var(--gold); 
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); 
-            object-fit: cover;
-            background-color: #000;
-        }
+        /* Üst Menü Butonu */
+        .top-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
 
-        h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin-top: 10px; letter-spacing: 1px; text-transform: uppercase; font-size: 1.8rem; }
-        .subtitle { color: #888; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; display: inline-block; }
+        .service-card { background: var(--card); border: 1px solid #333; padding: 20px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; }
+        .service-card.selected { border-color: var(--gold); background: #1a1a1a; box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+        .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
+        .time-btn { padding: 10px 5px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; font-size: 0.85rem; }
+        .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; }
+        .time-btn.disabled { background: rgba(183, 28, 28, 0.1); color: #555; text-decoration: line-through; }
+        input { width: 100%; padding: 15px; margin-top: 10px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 1rem; }
+        .btn-main { background: linear-gradient(45deg, #b8860b, #d4af37); color: #000; width: 100%; padding: 18px; border: none; border-radius: 8px; font-weight: bold; margin-top: 25px; cursor: pointer; }
+        .hidden { display: none !important; }
 
-        .service-card { background: var(--card); border: 1px solid #333; padding: 25px; margin-bottom: 15px; border-radius: 12px; cursor: pointer; text-align: center; transition: 0.3s; }
-        .service-card.selected { border-color: var(--gold); background: #1a1a1a; box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        .service-card h3 { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; }
-
-        .time-slots { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 8px; 
-            margin-top: 15px; 
-            min-height: 250px;
-            align-content: start;
-        }
-
-        .time-btn { padding: 10px 5px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-        .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); }
-        .time-btn.disabled { background: rgba(183, 28, 28, 0.1); color: #555; border-color: #331111; cursor: not-allowed; text-decoration: line-through; }
-
-        input { width: 100%; padding: 15px; margin-top: 10px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
-        input:focus { border-color: var(--gold); }
-        input[type="date"] { color-scheme: dark; }
-
-        .btn-main { background: linear-gradient(45deg, #b8860b, #d4af37); color: #000; width: 100%; padding: 18px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; margin-top: 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-main:disabled { opacity: 0.5; cursor: wait; }
-
-        .hidden { display: none; }
-        .section-title { color: #fff; margin-top: 0; font-size: 1rem; text-align: left; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
-        
-        #slotMsg { color: var(--gold); font-size: 0.9rem; margin: 10px 0; font-style: italic; min-height: 20px; }
+        /* Randevularım Modalı */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .appt-item { background: #222; padding: 15px; border-left: 4px solid var(--gold); margin-bottom: 10px; text-align: left; border-radius: 5px; }
+        .appt-date { font-weight: bold; color: #fff; }
+        .appt-service { font-size: 0.9rem; color: #aaa; }
     </style>
 </head>
 <body>
 
+    <button class="top-btn" onclick="openMyApps()">📅 Randevularım</button>
+
     <div class="logo-container">
-        <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" alt="Berber Fikret Almış Logosu" class="logo-img">
+        <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="logo-img">
     </div>
 
     <h1>FİKRET ALMIŞ</h1>
     <p class="subtitle">BERBER FİKRET ALMIŞ</p>
 
     <div id="step1">
-        <h3 class="section-title">HİZMET SEÇİNİZ</h3>
+        <h3>HİZMET SEÇİNİZ</h3>
         <div class="service-card" onclick="selectService('SAÇ KESİM', this)"><h3>SAÇ KESİM</h3></div>
-        <div class="service-card" onclick="selectService('SAÇ SAKAL KESİMİ', this)"><h3>SAÇ SAKAL KESİMİ</h3></div>
-        <div class="service-card" onclick="selectService('VIP SAÇ KESİMİ', this)"><h3>VIP SAÇ KESİMİ</h3></div>
-        <div class="service-card" onclick="selectService('SAKAL KESİMİ', this)"><h3>SAKAL KESİMİ</h3></div>
+        <div class="service-card" onclick="selectService('SAÇ SAKAL', this)"><h3>SAÇ SAKAL KESİMİ</h3></div>
+        <div class="service-card" onclick="selectService('VIP BAKIM', this)"><h3>VIP SAÇ KESİMİ</h3></div>
+        <div class="service-card" onclick="selectService('SAKAL KESİM', this)"><h3>SAKAL KESİMİ</h3></div>
     </div>
 
-    <div id="step2" class="hidden" style="margin-top: 40px;">
-        <h3 class="section-title">TARİH & SAAT</h3>
+    <div id="step2" class="hidden">
+        <h3>TARİH & SAAT</h3>
         <input type="date" id="datePicker" onchange="loadSlots()">
-        <p id="slotMsg" class="hidden">Saatler kontrol ediliyor...</p>
+        <p id="slotMsg" class="hidden"></p>
         <div class="time-slots" id="slotsContainer"></div>
     </div>
 
-    <div id="step3" class="hidden" style="margin-top: 40px;">
-        <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
+    <div id="step3" class="hidden">
+        <h3>BİLGİLERİNİZ</h3>
         <input type="text" id="name" placeholder="Adınız Soyadınız">
         <input type="text" id="phone" placeholder="Telefon (05XX...)">
-        <button class="btn-main" onclick="bookAppointment()">Randevuyu Onayla</button>
+        <button class="btn-main" onclick="bookAppointment()">RANDEVUYU ONAYLA</button>
+    </div>
+
+    <div id="myAppsModal" class="hidden modal">
+        <span class="close-modal" onclick="closeMyApps()">✕</span>
+        <h2 style="color:var(--gold); margin-top:50px;">RANDEVULARIM</h2>
+        <p>Telefon numaranızı girerek kayıtlı randevularınızı görebilirsiniz.</p>
+        
+        <input type="tel" id="searchPhone" placeholder="Telefon Numaranız (05...)" style="margin-bottom: 20px;">
+        <button class="btn-main" onclick="checkAppointments()" style="margin-top:0;">SORGULA</button>
+        
+        <div id="myAppsList" style="margin-top: 30px;">
+            </div>
     </div>
 
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
-    let selectedService = "";
-    let selectedDate = "";
-    let selectedTime = "";
+    // --- RANDEVULARIM FONKSİYONLARI ---
+    function openMyApps() { document.getElementById('myAppsModal').classList.remove('hidden'); }
+    function closeMyApps() { document.getElementById('myAppsModal').classList.add('hidden'); }
+
+    function checkAppointments() {
+        const phone = document.getElementById('searchPhone').value;
+        const listDiv = document.getElementById('myAppsList');
+        
+        if(phone.length < 10) { alert("Lütfen geçerli bir numara girin."); return; }
+        
+        listDiv.innerHTML = '<p style="color:var(--gold)">Sorgulanıyor...</p>';
+
+        // Backend'e "Randevularımı Getir" komutu yolla
+        fetch(API_URL + "?action=check_my_appointments&phone=" + phone)
+        .then(res => res.json())
+        .then(data => {
+            listDiv.innerHTML = "";
+            if(data.length === 0) {
+                listDiv.innerHTML = "<p>Bu numaraya ait randevu bulunamadı.</p>";
+            } else {
+                data.forEach(appt => {
+                    const item = document.createElement('div');
+                    item.className = 'appt-item';
+                    item.innerHTML = `
+                        <div class="appt-date">${appt.tarih} - ${appt.saat}</div>
+                        <div class="appt-service">${appt.hizmet}</div>
+                    `;
+                    listDiv.appendChild(item);
+                });
+            }
+        })
+        .catch(err => {
+            listDiv.innerHTML = "<p>Hata oluştu. Tekrar deneyin.</p>";
+        });
+    }
+
+    // --- STANDART FONKSİYONLAR ---
+    let selectedService = "", selectedDate = "", selectedTime = "";
 
     function selectService(name, el) {
         document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedService = name;
-        
+        el.classList.add('selected'); selectedService = name;
         document.getElementById('step2').classList.remove('hidden');
-        
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('datePicker');
-        if(!dateInput.value) {
-            dateInput.value = today;
-            dateInput.min = today;
-            loadSlots();
-        }
-        
-        setTimeout(() => {
-            document.getElementById('step2').scrollIntoView({behavior: 'smooth', block: 'start'});
-        }, 100);
+        if(!dateInput.value) { dateInput.value = today; dateInput.min = today; loadSlots(); }
+        setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth'}), 100);
     }
 
     function loadSlots() {
         const dateVal = document.getElementById('datePicker').value;
-        if(!dateVal) return;
-        selectedDate = dateVal;
-        
+        if(!dateVal) return; selectedDate = dateVal;
         const container = document.getElementById('slotsContainer');
         const msg = document.getElementById('slotMsg');
+        container.innerHTML = ""; msg.classList.remove('hidden'); msg.innerText = "Yükleniyor...";
         
-        container.innerHTML = "";
-        msg.classList.remove('hidden');
-        msg.innerText = "Müsait saatler yükleniyor...";
-
-        fetch(API_URL)
-        .then(res => res.json())
-        .then(bookedList => {
+        fetch(API_URL).then(res => res.json()).then(bookedList => {
             msg.classList.add('hidden');
-            
-            const hours = [
-                "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-                "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-                "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-                "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
-                "21:00", "21:30", "22:00"
-            ];
-            
+            const hours = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"];
             hours.forEach(time => {
                 const btn = document.createElement('div');
-                btn.className = 'time-btn';
-                btn.innerText = time;
-                const checkKey = selectedDate + "_" + time;
-                
-                if(bookedList.includes(checkKey)) {
-                    btn.classList.add('disabled');
-                    btn.title = "Dolu";
-                } else {
-                    btn.onclick = () => selectTime(time, btn);
-                }
+                btn.className = 'time-btn'; btn.innerText = time;
+                if(bookedList.includes(selectedDate + "_" + time)) btn.classList.add('disabled');
+                else btn.onclick = () => {
+                    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected'); selectedTime = time;
+                    document.getElementById('step3').classList.remove('hidden');
+                    setTimeout(() => document.getElementById('step3').scrollIntoView({behavior:'smooth'}), 100);
+                };
                 container.appendChild(btn);
             });
-        })
-        .catch(err => {
-            msg.innerText = "Yükleme hatası. İnternetinizi kontrol edin.";
         });
-    }
-
-    function selectTime(time, el) {
-        if(el.classList.contains('disabled')) return;
-        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedTime = time;
-        
-        document.getElementById('step3').classList.remove('hidden');
-        setTimeout(() => {
-            document.getElementById('step3').scrollIntoView({behavior: 'smooth', block: 'start'});
-        }, 100);
     }
 
     function bookAppointment() {
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
         const btn = document.querySelector('.btn-main');
-
-        if(!name || !phone) { alert("Lütfen İsim ve Telefon giriniz."); return; }
-
-        btn.innerText = "İŞLENİYOR...";
-        btn.disabled = true;
-
-        const data = {
-            tarih: selectedDate,
-            saat: selectedTime,
-            isim: name,
-            telefon: phone,
-            hizmet: selectedService
-        };
-
-        fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "text/plain;charset=utf-8" }
-        })
-        .then(res => res.json())
-        .then(response => {
-            if(response.status === "success") {
-                alert("Randevunuz başarıyla oluşturuldu! Teşekkürler.");
-                location.reload(); 
-            } else {
-                alert("HATA: " + response.message);
-                btn.disabled = false;
-                btn.innerText = "TEKRAR DENE";
-                loadSlots();
-            }
-        })
-        .catch(error => {
-            alert("Sunucu hatası.");
-            btn.disabled = false;
-            btn.innerText = "TEKRAR DENE";
+        if(!name || !phone) { alert("Eksik bilgi."); return; }
+        btn.innerText = "İŞLENİYOR..."; btn.disabled = true;
+        
+        fetch(API_URL, { method: "POST", body: JSON.stringify({tarih: selectedDate, saat: selectedTime, isim: name, telefon: phone, hizmet: selectedService}) })
+        .then(res => res.json()).then(res => {
+            if(res.status === "success") { alert("Randevu Alındı!"); location.reload(); }
+            else { alert(res.message); btn.disabled = false; btn.innerText = "TEKRAR DENE"; loadSlots(); }
         });
     }
 </script>
