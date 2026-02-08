@@ -19,7 +19,6 @@
             --gold: #D4AF37; 
             --bg-dark: #0a0a0a;
             --text: #e0e0e0;
-            /* Kabartma Efekti Gölgeleri */
             --shadow-emboss: 8px 8px 16px #050505, -4px -4px 12px rgba(255,255,255, 0.05);
             --shadow-inset: inset 4px 4px 8px #050505, inset -2px -2px 6px rgba(255,255,255, 0.05);
         }
@@ -27,177 +26,79 @@
         
         body { 
             background-color: var(--bg-dark);
-            /* Dokulu Arka Plan */
             background-image: 
                 radial-gradient(circle at center, rgba(30,30,30,0.4) 0%, rgba(0,0,0,0.8) 100%),
                 repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px);
             background-attachment: fixed;
             color: var(--text); 
             font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            text-align: center; 
-            padding-bottom: 50px; 
-            min-height: 100vh;
+            margin: 0; padding: 20px; text-align: center; padding-bottom: 50px; min-height: 100vh;
         }
 
-        /* LOGO & BAŞLIK */
         .logo-img { 
-            width: 150px; height: 150px; 
-            border-radius: 50%; 
-            border: 3px solid var(--gold); 
+            width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); 
             box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2);
-            object-fit: cover; 
-            background-color: #000;
-            margin-top: 30px;
+            object-fit: cover; background-color: #000; margin-top: 30px;
         }
         
-        h1 { 
-            font-family: 'Playfair Display', serif; 
-            color: var(--gold); 
-            margin: 25px 0 35px 0; 
-            letter-spacing: 2px; 
-            font-size: 2rem; 
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.8); 
-        }
+        h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin: 25px 0 35px 0; letter-spacing: 2px; font-size: 2rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
 
-        /* SOSYAL LİNKLER (GÜNCELLENDİ) */
         .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 45px; }
         .icon-btn { 
-            color: #aaa; text-decoration: none; font-size: 0.9rem; 
-            padding: 12px 24px; 
-            border-radius: 30px; 
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; gap: 10px;
-            transition: 0.3s;
+            color: #aaa; text-decoration: none; font-size: 0.9rem; padding: 12px 24px; border-radius: 30px; 
+            background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss);
+            border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px; transition: 0.3s;
         }
-        /* İkonların renginin değişmesini sağlar */
-        .icon-btn svg { fill: currentColor; transition: 0.3s; }
-        
-        .icon-btn:hover { 
-            color: var(--gold); 
-            border-color: var(--gold); 
-            transform: translateY(-2px);
-            box-shadow: 10px 10px 20px #000, -5px -5px 15px rgba(255,255,255, 0.05);
-        }
+        .icon-btn svg { fill: currentColor; }
+        .icon-btn:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
 
-        /* KABARTMALI HİZMET KARTLARI */
+        /* KART TASARIMI */
         .glass-card { 
             background: linear-gradient(145deg, #181818, #121212);
             box-shadow: var(--shadow-emboss);
             border: 1px solid rgba(212, 175, 55, 0.05);
-            padding: 25px; 
-            margin-bottom: 20px; 
-            border-radius: 16px; 
-            cursor: pointer; 
-            transition: 0.3s ease; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 25px; margin-bottom: 20px; border-radius: 16px; 
+            cursor: pointer; transition: 0.3s ease; text-align: center; position: relative;
+            display: flex; justify-content: center; align-items: center;
         }
-        
         .glass-card:active { box-shadow: var(--shadow-inset); }
+        .glass-card.selected { border-color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.01); }
+        .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
 
-        .glass-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--gold); opacity: 0; transition: 0.3s;
-        }
+        .section-title { color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px; margin-top: 20px;}
+        .card-title { font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .card-subtitle { font-size: 0.8rem; color: #888; margin-top: 5px; }
 
-        .glass-card.selected { 
-            border-color: var(--gold); 
-            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-            box-shadow: inset 3px 3px 8px #050505, inset -2px -2px 6px rgba(255,255,255, 0.03), 0 0 15px rgba(212, 175, 55, 0.1);
-            transform: scale(1.01);
-        }
-        .glass-card.selected::before { opacity: 1; }
-
-        .service-title { font-size: 1.3rem; color: #fff; font-weight: 600; letter-spacing: 1px; }
-
-        /* SAATLER */
         .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; }
         .time-btn { 
-            padding: 15px 5px; 
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss);
-            border: 1px solid rgba(255,255,255,0.03);
-            color: #fff; 
-            border-radius: 10px; 
-            font-size: 0.9rem; 
-            cursor: pointer; 
-            transition: 0.2s;
+            padding: 15px 5px; background: linear-gradient(145deg, #1a1a1a, #111);
+            box-shadow: var(--shadow-emboss); border: 1px solid rgba(255,255,255,0.03);
+            color: #fff; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
         }
-        .time-btn.selected { 
-            background: var(--gold); 
-            color: #000; font-weight: bold; border-color: var(--gold); 
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            transform: translateY(-2px);
-        }
-        .time-btn:active { box-shadow: var(--shadow-inset); transform: translateY(0); }
+        .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); transform: translateY(-2px); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
-        /* FORM INPUTLARI */
-        input { 
-            width: 100%; padding: 18px; margin-top: 15px; 
-            background: #111;
-            box-shadow: var(--shadow-inset);
-            border: 1px solid rgba(255,255,255,0.05); 
-            color: #fff; border-radius: 12px; font-size: 1.1rem; outline: none; 
-            transition: 0.3s;
-        }
-        input:focus { border-color: var(--gold); box-shadow: var(--shadow-inset), 0 0 10px rgba(212, 175, 55, 0.1); }
+        input { width: 100%; padding: 18px; margin-top: 15px; background: #111; box-shadow: var(--shadow-inset); border: 1px solid rgba(255,255,255,0.05); color: #fff; border-radius: 12px; font-size: 1.1rem; outline: none; }
+        input:focus { border-color: var(--gold); }
 
-        /* ANA BUTON */
         .btn-main { 
-            background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); 
-            background-size: 200% auto;
-            color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; 
-            font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; 
-            text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
-            transition: 0.4s;
+            background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200%;
+            color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; text-transform: uppercase;
         }
-        .btn-main:hover { background-position: right center; }
-        .btn-main:active { transform: scale(0.98); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        .btn-main:active { transform: scale(0.98); }
 
-        /* RANDEVULARIM BUTONU */
-        .top-btn { 
-            position: absolute; top: 20px; right: 20px; 
-            color: var(--gold); 
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss);
-            padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; 
-            border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; 
-        }
-        .top-btn:active { box-shadow: var(--shadow-inset); }
+        .top-btn { position: absolute; top: 20px; right: 20px; color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; }
 
-        /* MODAL & HELPERS */
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; }
-        
-        .success-box { 
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss);
-            border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; 
-        }
-        .appt-item { 
-            background: linear-gradient(145deg, #181818, #121212);
-            box-shadow: var(--shadow-emboss);
-            padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; 
-        }
+        .success-box { background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; }
+        .appt-item { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; }
 
-        /* Animasyon */
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .delay-1 { animation-delay: 0.15s; }
         .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.45s; }
-
     </style>
 </head>
 <body>
@@ -211,7 +112,7 @@
     <h1 class="fade-in">FİKRET ALMIŞ</h1>
 
     <div class="social-links fade-in delay-1">
-        <a href="https://goo.gl/maps/YOUR_ACTUAL_MAP_LINK_HERE" target="_blank" class="icon-btn">
+        <a href="https://maps.google.com/?cid=10836908038455966931&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="icon-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
             Konum
         </a>
@@ -222,40 +123,58 @@
     </div>
 
     <div id="step1" class="fade-in delay-2">
-        <div class="glass-card" onclick="selectService('SAÇ KESİM', this)">
-            <div class="service-title">SAÇ KESİMİ</div>
+        <h3 class="section-title">KİMİNLE TIRAŞ OLMAK İSTERSİNİZ?</h3>
+        
+        <div class="glass-card" onclick="selectBarber('Fikret', this)">
+            <div>
+                <div class="card-title">FİKRET</div>
+                <div class="card-subtitle">İşletme Sahibi</div>
+            </div>
         </div>
-        <div class="glass-card" onclick="selectService('SAÇ SAKAL', this)">
-            <div class="service-title">SAÇ & SAKAL</div>
+        
+        <div class="glass-card" onclick="selectBarber('Alperen', this)">
+            <div>
+                <div class="card-title">ALPEREN</div>
+                <div class="card-subtitle">Profesyonel Saç Tasarım</div>
+            </div>
         </div>
-        <div class="glass-card" onclick="selectService('VIP BAKIM', this)">
-            <div class="service-title">VIP DENEYİM</div>
-        </div>
-        <div class="glass-card" onclick="selectService('SAKAL TASARIM', this)">
-            <div class="service-title">SAKAL TASARIM</div>
+
+        <div class="glass-card" onclick="selectBarber('Yunus', this)">
+            <div>
+                <div class="card-title">YUNUS</div>
+                <div class="card-subtitle">Profesyonel Saç Tasarım</div>
+            </div>
         </div>
     </div>
 
     <div id="step2" class="hidden fade-in">
-        <h3 style="color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px;">TARİH & SAAT SEÇİNİZ</h3>
-        <input type="date" id="datePicker" onchange="loadSlots()">
-        <p id="slotMsg" class="hidden" style="color:var(--gold); font-size:0.9rem; margin:15px 0; font-style: italic;">Müsaitlik kontrol ediliyor...</p>
-        <div class="time-slots" id="slotsContainer"></div>
+        <h3 class="section-title">HİZMET SEÇİNİZ</h3>
+        <div class="glass-card" onclick="selectService('SAÇ KESİM', this)"><div class="card-title">SAÇ KESİMİ</div></div>
+        <div class="glass-card" onclick="selectService('SAÇ SAKAL', this)"><div class="card-title">SAÇ & SAKAL</div></div>
+        <div class="glass-card" onclick="selectService('VIP BAKIM', this)"><div class="card-title">VIP DENEYİM</div></div>
+        <div class="glass-card" onclick="selectService('SAKAL TASARIM', this)"><div class="card-title">SAKAL TASARIM</div></div>
     </div>
 
     <div id="step3" class="hidden fade-in">
-        <h3 style="color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px;">İLETİŞİM BİLGİLERİ</h3>
+        <h3 class="section-title">TARİH & SAAT</h3>
+        <input type="date" id="datePicker" onchange="loadSlots()">
+        <p id="slotMsg" class="hidden" style="color:var(--gold); font-size:0.9rem; margin:15px 0;">Müsaitlik kontrol ediliyor...</p>
+        <div class="time-slots" id="slotsContainer"></div>
+    </div>
+
+    <div id="step4" class="hidden fade-in">
+        <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
         <input type="text" id="name" placeholder="Adınız Soyadınız">
         <input type="tel" id="phone" placeholder="Telefon (5XX...) - Başında 0 olmadan">
         <button class="btn-main" onclick="bookAppointment()">RANDEVUYU ONAYLA</button>
     </div>
 
-    <div id="step4" class="hidden fade-in">
+    <div id="step5" class="hidden fade-in">
         <div class="success-box">
             <div style="font-size: 4rem; margin-bottom:20px;">✨</div>
             <h2 style="color: var(--gold); margin: 0; font-size: 1.8rem;">RANDEVU ONAYLANDI</h2>
             <p style="color: #ccc; margin-top: 20px; font-size:1rem; line-height:1.6;">
-                Kaydınız başarıyla oluşturulmuştur.<br>Sizi ağırlamak için sabırsızlanıyoruz.
+                Kaydınız başarıyla oluşturulmuştur.<br>Sizi bekliyoruz.
             </p>
             <button class="btn-main" onclick="location.reload()" style="background:transparent; border:2px solid #555; color:#fff; margin-top:30px; font-size:0.9rem; padding: 15px;">ANA SAYFA</button>
         </div>
@@ -264,7 +183,7 @@
     <div id="myAppsModal" class="hidden modal">
         <span class="close-modal" onclick="closeMyApps()">✕</span>
         <h2 style="color:var(--gold); margin-top:60px; font-size: 1.8rem;">RANDEVULARIM</h2>
-        <p style="color:#aaa; font-size:1rem; margin-bottom: 30px;">Telefon numaranızla giriş yapın (5XX...)</p>
+        <p style="color:#aaa; font-size:1rem; margin-bottom: 30px;">Telefon numaranızla giriş yapın</p>
         <input type="tel" id="searchPhone" placeholder="5XX..." style="margin-bottom: 25px;">
         <button class="btn-main" onclick="checkAppointments()" style="margin-top:0;">SORGULA</button>
         <div id="myAppsList" style="margin-top: 40px;"></div>
@@ -273,10 +192,116 @@
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
-    // UI İŞLEMLERİ
+    // Değişkenler
+    let selectedBarber = ""; 
+    let selectedService = "";
+    let selectedDate = "";
+    let selectedTime = "";
+
+    // UI Fonksiyonları
     function openMyApps() { document.getElementById('myAppsModal').classList.remove('hidden'); }
     function closeMyApps() { document.getElementById('myAppsModal').classList.add('hidden'); }
 
+    // ADIM 1: PERSONEL SEÇİMİ
+    function selectBarber(name, el) {
+        document.querySelectorAll('#step1 .glass-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedBarber = name;
+        
+        document.getElementById('step2').classList.remove('hidden');
+        setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth'}), 200);
+    }
+
+    // ADIM 2: HİZMET SEÇİMİ
+    function selectService(name, el) {
+        document.querySelectorAll('#step2 .glass-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected'); 
+        selectedService = name;
+        
+        document.getElementById('step3').classList.remove('hidden');
+        const today = new Date().toISOString().split('T')[0];
+        const d = document.getElementById('datePicker');
+        if(!d.value) { d.value = today; d.min = today; loadSlots(); }
+        setTimeout(() => document.getElementById('step3').scrollIntoView({behavior:'smooth'}), 200);
+    }
+
+    // ADIM 3: SAATLERİ YÜKLE
+    function loadSlots() {
+        const dInput = document.getElementById('datePicker');
+        const dVal = dInput.value;
+        if(!dVal) return;
+        
+        const dateObj = new Date(dVal);
+        if(dateObj.getDay() === 0) {
+            const msg = document.getElementById('slotMsg');
+            msg.classList.remove('hidden');
+            msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b>";
+            msg.style.color = "#ff4444";
+            dInput.value = ""; 
+            document.getElementById('slotsContainer').innerHTML = "";
+            return;
+        }
+
+        selectedDate = dVal;
+        const c = document.getElementById('slotsContainer');
+        const m = document.getElementById('slotMsg');
+        m.style.color = "var(--gold)";
+        c.innerHTML = ""; m.classList.remove('hidden'); m.innerText = selectedBarber + " için müsaitlik bakılıyor...";
+        
+        fetch(API_URL + "?personel=" + encodeURIComponent(selectedBarber))
+        .then(res => res.json())
+        .then(booked => {
+            m.classList.add('hidden');
+            const h = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"];
+            h.forEach(t => {
+                const b = document.createElement('div');
+                b.className = 'time-btn'; b.innerText = t;
+                const key = selectedDate + "_" + t;
+                
+                if(booked.includes(key)) b.classList.add('disabled');
+                else b.onclick = () => {
+                    document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('selected'));
+                    b.classList.add('selected'); selectedTime = t;
+                    document.getElementById('step4').classList.remove('hidden');
+                    setTimeout(() => document.getElementById('step4').scrollIntoView({behavior:'smooth'}), 200);
+                };
+                c.appendChild(b);
+            });
+        });
+    }
+
+    // RANDEVU KAYDETME
+    function bookAppointment() {
+        const n = document.getElementById('name').value;
+        const p = document.getElementById('phone').value;
+        const b = document.querySelector('.btn-main');
+        if(!n || !p) { alert("Lütfen isim ve numara giriniz."); return; }
+        b.innerText = "KAYDEDİLİYOR..."; b.disabled = true;
+        
+        const data = {
+            tarih: selectedDate, 
+            saat: selectedTime, 
+            isim: n, 
+            telefon: p, 
+            hizmet: selectedService,
+            personel: selectedBarber 
+        };
+        
+        fetch(API_URL, { method: "POST", body: JSON.stringify(data) })
+        .then(res => res.json()).then(res => {
+            if(res.status === "success") {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.add('hidden');
+                document.getElementById('step4').classList.add('hidden');
+                document.querySelector('.social-links').classList.add('hidden');
+                document.getElementById('step5').classList.remove('hidden');
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            } else { alert(res.message); b.disabled = false; b.innerText = "TEKRAR DENE"; loadSlots(); }
+        });
+    }
+
+    // RANDEVULARIM SORGUSU
     function checkAppointments() {
         const phone = document.getElementById('searchPhone').value;
         const listDiv = document.getElementById('myAppsList');
@@ -290,86 +315,17 @@
             if(data.length === 0) listDiv.innerHTML = "<p style='color:#fff; font-size:1.1rem;'>Kayıt bulunamadı.</p>";
             else {
                 data.forEach(appt => {
-                    listDiv.innerHTML += `<div class="appt-item"><div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div><div style="color:#ddd; font-size:0.95rem">${appt.hizmet}</div></div>`;
+                    listDiv.innerHTML += `
+                    <div class="appt-item">
+                        <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
+                        <div style="color:#fff; font-size:1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
+                        <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
+                    </div>`;
                 });
             }
         })
         .catch(err => {
             listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>";
-        });
-    }
-
-    let selectedService = "", selectedDate = "", selectedTime = "";
-
-    function selectService(name, el) {
-        document.querySelectorAll('.glass-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected'); selectedService = name;
-        document.getElementById('step2').classList.remove('hidden');
-        const today = new Date().toISOString().split('T')[0];
-        const d = document.getElementById('datePicker');
-        if(!d.value) { d.value = today; d.min = today; loadSlots(); }
-        setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth'}), 200);
-    }
-
-    // PAZAR GÜNÜ KONTROLÜ
-    function loadSlots() {
-        const dInput = document.getElementById('datePicker');
-        const dVal = dInput.value;
-        if(!dVal) return;
-        
-        const dateObj = new Date(dVal);
-        if(dateObj.getDay() === 0) {
-            const msg = document.getElementById('slotMsg');
-            msg.classList.remove('hidden');
-            msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b><br>Lütfen başka bir gün seçiniz.";
-            msg.style.color = "#ff4444";
-            dInput.value = ""; 
-            document.getElementById('slotsContainer').innerHTML = "";
-            return;
-        }
-
-        selectedDate = dVal;
-        const c = document.getElementById('slotsContainer');
-        const m = document.getElementById('slotMsg');
-        m.style.color = "var(--gold)";
-        c.innerHTML = ""; m.classList.remove('hidden'); m.innerText = "Müsaitlik kontrol ediliyor...";
-        
-        fetch(API_URL).then(res => res.json()).then(booked => {
-            m.classList.add('hidden');
-            const h = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"];
-            h.forEach(t => {
-                const b = document.createElement('div');
-                b.className = 'time-btn'; b.innerText = t;
-                const key = selectedDate + "_" + t;
-                if(booked.includes(key)) b.classList.add('disabled');
-                else b.onclick = () => {
-                    document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('selected'));
-                    b.classList.add('selected'); selectedTime = t;
-                    document.getElementById('step3').classList.remove('hidden');
-                    setTimeout(() => document.getElementById('step3').scrollIntoView({behavior:'smooth'}), 200);
-                };
-                c.appendChild(b);
-            });
-        });
-    }
-
-    function bookAppointment() {
-        const n = document.getElementById('name').value;
-        const p = document.getElementById('phone').value;
-        const b = document.querySelector('.btn-main');
-        if(!n || !p) { alert("Lütfen isim ve numara giriniz."); return; }
-        b.innerText = "KAYDEDİLİYOR..."; b.disabled = true;
-        
-        fetch(API_URL, { method: "POST", body: JSON.stringify({tarih: selectedDate, saat: selectedTime, isim: n, telefon: p, hizmet: selectedService}) })
-        .then(res => res.json()).then(res => {
-            if(res.status === "success") {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.add('hidden');
-                document.getElementById('step3').classList.add('hidden');
-                document.querySelector('.social-links').classList.add('hidden');
-                document.getElementById('step4').classList.remove('hidden');
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            } else { alert(res.message); b.disabled = false; b.innerText = "TEKRAR DENE"; loadSlots(); }
         });
     }
 </script>
