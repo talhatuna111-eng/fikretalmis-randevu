@@ -36,53 +36,28 @@
             position: relative;
         }
 
-        /* YENİ EKLENEN BÖLÜM: Arka Plan Dokusu */
+        /* ARKA PLAN DOKUSU (VEKTÖR GÖRSEL) */
         body::before {
             content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Kullanıcının sağladığı görsel */
-            background-image: url('vector-monochrome-collection-barbershop-tools.zip/138.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -2; /* Particles'ın ve içeriğin arkasında */
-            opacity: 0.08; /* Çok hafif, doku gibi hissedilecek */
-            filter: sepia(1) hue-rotate(40deg) saturate(5) brightness(0.8); /* Altın rengi tonlama */
-            mix-blend-mode: overlay; /* Arka planla daha iyi bütünleşmesi için */
-            pointer-events: none; /* Tıklamaları engelle */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* GÖRSELİ BURAYA KOYUYORUZ */
+            background-image: url('https://i.ibb.co/wF32Gj5T/LOGO.png'); /* Şimdilik logo koydum, sen buraya vektör linkini koyabilirsin */
+            background-size: 500px; /* Deseni büyütüp küçültebilirsin */
+            background-repeat: repeat;
+            z-index: -2; opacity: 0.03; /* Çok silik dursun */
+            filter: grayscale(100%);
+            pointer-events: none;
         }
 
-        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(26, 26, 26, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); /* Arka planı biraz daha şeffaf yap ki doku görünsün */ }
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(26, 26, 26, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* --- EXCLUSIVE RANDEVU BUTONU --- */
-        .top-btn { 
-            position: absolute; 
-            top: 25px; 
-            left: 20px; 
-            color: var(--gold); 
-            background: rgba(10, 10, 10, 0.9); 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); 
-            padding: 12px 24px; 
-            border-radius: 50px; 
-            font-size: 0.95rem; 
-            font-weight: 800; 
-            font-family: 'Montserrat', sans-serif;
-            border: 1px solid var(--gold); 
-            cursor: pointer;
-            z-index: 2000; 
-            touch-action: manipulation;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: 0.5px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .top-btn:active { transform: scale(0.95); }
+        /* TOAST BİLDİRİMİ (SADECE HATALAR İÇİN) */
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10002; width: 90%; max-width: 400px; }
+        .toast { background: #1a1a1a; color: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; opacity: 0; transform: translateY(-20px); transition: 0.3s ease; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { border-color: #2ecc71; }
+        .toast.error { border-color: #e74c3c; }
 
         /* VIP KART */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 10px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
@@ -135,6 +110,20 @@
         .btn-main { background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200%; color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; text-transform: uppercase; position: relative; z-index: 20; }
         .btn-main:active { transform: scale(0.98); }
 
+        .top-btn { 
+            position: absolute; top: 25px; left: 20px; 
+            color: var(--gold); background: rgba(10, 10, 10, 0.9); 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); 
+            padding: 12px 24px; border-radius: 50px; 
+            font-size: 0.95rem; font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+            border: 1px solid var(--gold); cursor: pointer;
+            z-index: 2000; touch-action: manipulation;
+            display: flex; align-items: center; gap: 8px;
+            letter-spacing: 0.5px; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .top-btn:active { transform: scale(0.95); }
+
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 9999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 10001;}
@@ -151,6 +140,7 @@
 </head>
 <body>
 
+    <div id="toast-container"></div>
     <div id="particles-js"></div>
 
     <div id="preloader">
@@ -241,10 +231,35 @@
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
+    // YÜKLEME VE EFEKT AYARLARI
     window.addEventListener('load', () => {
         setTimeout(() => { document.getElementById('preloader').style.opacity = '0'; setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800); }, 1500);
-        particlesJS("particles-js", { "particles": { "number": { "value": 50 }, "color": { "value": "#d4af37" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "out_mode": "out" } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true }, "modes": { "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 1 }, "repulse": { "distance": 200, "duration": 0.4 } } }, "retina_detect": true });
+        
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 50 },
+                "color": { "value": "#d4af37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": false },
+                "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "out_mode": "out" }
+            },
+            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true }, "modes": { "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 1 }, "repulse": { "distance": 200, "duration": 0.4 } } },
+            "retina_detect": true
+        });
     });
+
+    // TOAST BİLDİRİM
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = type === 'success' ? `✅ ${message}` : `⚠️ ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+    }
 
     let selectedBarber = "", selectedService = "", selectedDate = "", selectedTime = "";
 
@@ -271,16 +286,29 @@
     function loadSlots() {
         const dInput = document.getElementById('datePicker');
         const dVal = dInput.value;
+        const msg = document.getElementById('slotMsg');
         if(!dVal) return;
+        
         const dateObj = new Date(dVal);
-        if(dateObj.getDay() === 0) { alert("Pazar günleri kapalıyız."); dInput.value = ""; document.getElementById('slotsContainer').innerHTML = ""; return; }
+        if(dateObj.getDay() === 0) {
+            // PAZAR GÜNÜ UYARISI (TOAST DEĞİL, ALTTA YAZI)
+            msg.classList.remove('hidden');
+            msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b>";
+            msg.style.color = "#ff4444";
+            dInput.value = ""; document.getElementById('slotsContainer').innerHTML = ""; return;
+        }
+
         selectedDate = dVal;
         const c = document.getElementById('slotsContainer');
-        const m = document.getElementById('slotMsg');
-        m.style.color = "var(--gold)";
-        c.innerHTML = ""; m.classList.remove('hidden'); m.innerText = selectedBarber + " için müsaitlik bakılıyor...";
-        fetch(API_URL + "?personel=" + encodeURIComponent(selectedBarber)).then(res => res.json()).then(booked => {
-            m.classList.add('hidden');
+        msg.style.color = "var(--gold)";
+        msg.classList.remove('hidden');
+        msg.innerText = selectedBarber + " için müsaitlik bakılıyor...";
+        c.innerHTML = "";
+        
+        fetch(API_URL + "?personel=" + encodeURIComponent(selectedBarber))
+        .then(res => res.json())
+        .then(booked => {
+            msg.classList.add('hidden');
             const h = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"];
             h.forEach(t => {
                 const b = document.createElement('div');
@@ -302,11 +330,15 @@
         const n = document.getElementById('name').value;
         const p = document.getElementById('phone').value;
         const b = document.querySelector('.btn-main');
-        if(!n || !p) { alert("Lütfen isim ve numara giriniz."); return; }
+        if(!n || !p) { showToast("Lütfen isim ve numara giriniz.", "error"); return; }
+        
         confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: ['#d4af37', '#fdb931', '#ffffff'] });
         b.innerText = "KAYDEDİLİYOR..."; b.disabled = true;
+        
         const data = { tarih: selectedDate, saat: selectedTime, isim: n, telefon: p, hizmet: selectedService, personel: selectedBarber };
-        fetch(API_URL, { method: "POST", body: JSON.stringify(data) }).then(res => res.json()).then(res => {
+        
+        fetch(API_URL, { method: "POST", body: JSON.stringify(data) })
+        .then(res => res.json()).then(res => {
             if(res.status === "success") {
                 document.getElementById('step1').classList.add('hidden');
                 document.getElementById('step2').classList.add('hidden');
@@ -315,16 +347,19 @@
                 document.querySelector('.social-links').classList.add('hidden');
                 document.getElementById('step5').classList.remove('hidden');
                 window.scrollTo({top: 0, behavior: 'smooth'});
-            } else { alert(res.message); b.disabled = false; b.innerText = "TEKRAR DENE"; loadSlots(); }
+            } else { showToast(res.message, "error"); b.disabled = false; b.innerText = "TEKRAR DENE"; loadSlots(); }
         });
     }
 
     function checkAppointments() {
         const phone = document.getElementById('searchPhone').value;
         const listDiv = document.getElementById('myAppsList');
-        if(phone.length < 3) { alert("Numara giriniz."); return; }
+        if(phone.length < 3) { showToast("Numara giriniz.", "error"); return; }
+        
         listDiv.innerHTML = '<p style="color:var(--gold); font-size:1.1rem;">Bilgileriniz getiriliyor...</p>';
-        fetch(API_URL + "?action=check_my_appointments&phone=" + phone).then(res => res.json()).then(data => {
+        fetch(API_URL + "?action=check_my_appointments&phone=" + phone)
+        .then(res => res.json())
+        .then(data => {
             listDiv.innerHTML = "";
             if(data.length === 0) listDiv.innerHTML = "<p style='color:#fff; font-size:1.1rem;'>Kayıt bulunamadı.</p>";
             else {
@@ -333,6 +368,7 @@
                 let rawDate = data[0].tarih.split('-'); 
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let lastDate = fixDate + " • " + data[0].saat;
+
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
@@ -341,27 +377,33 @@
                     </div>
                 </div>
                 <h3 class="section-title" style="margin-top:0;">GEÇMİŞ İŞLEMLER</h3>`;
+                
                 listDiv.innerHTML = vipCardHTML;
+
                 data.forEach(appt => {
                     listDiv.innerHTML += `
                     <div class="appt-item fade-in">
                         <div>
                             <div style="font-weight:bold; font-size:1.1rem; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
                             <div style="color:#fff; font-weight:bold; font-size:1.1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
-                            <div style="color:#fff; font-weight:600; font-size:1rem;">${appt.hizmet}</div>
+                            <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
                         </div>
                         <button class="cancel-btn" onclick="cancelAppointment('${appt.tarih}', '${appt.saat}', '${phone}')">İPTAL ET</button>
                     </div>`;
                 });
             }
-        }).catch(err => { listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>"; });
+        })
+        .catch(err => { listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>"; });
     }
 
     function cancelAppointment(date, time, phone) {
         if(!confirm("Bu randevuyu iptal etmek istediğinize emin misiniz?")) return;
         const listDiv = document.getElementById('myAppsList');
         listDiv.innerHTML = '<p style="color:red;">İptal ediliyor...</p>';
-        fetch(`${API_URL}?action=cancel_appointment&date=${date}&time=${time}&phone=${phone}`).then(res => res.json()).then(data => { checkAppointments(); });
+        fetch(`${API_URL}?action=cancel_appointment&date=${date}&time=${time}&phone=${phone}`).then(res => res.json()).then(data => { 
+            showToast("Randevu iptal edildi.", "success");
+            checkAppointments(); 
+        });
     }
 </script>
 </body>
