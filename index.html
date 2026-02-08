@@ -18,9 +18,8 @@
         :root { 
             --gold: #D4AF37; 
             --bg-dark: #0a0a0a;
-            --card-dark: #141414;
             --text: #e0e0e0;
-            /* Kabartma Efekti için Gölgeler */
+            /* Kabartma Efekti Gölgeleri */
             --shadow-emboss: 8px 8px 16px #050505, -4px -4px 12px rgba(255,255,255, 0.05);
             --shadow-inset: inset 4px 4px 8px #050505, inset -2px -2px 6px rgba(255,255,255, 0.05);
         }
@@ -28,7 +27,7 @@
         
         body { 
             background-color: var(--bg-dark);
-            /* YENİ: Dokulu ve derinlikli lüks arka plan (Fotoğrafsız) */
+            /* Dokulu Arka Plan */
             background-image: 
                 radial-gradient(circle at center, rgba(30,30,30,0.4) 0%, rgba(0,0,0,0.8) 100%),
                 repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px);
@@ -47,7 +46,6 @@
             width: 150px; height: 150px; 
             border-radius: 50%; 
             border: 3px solid var(--gold); 
-            /* Logoya da kabartma efekti */
             box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2);
             object-fit: cover; 
             background-color: #000;
@@ -63,7 +61,7 @@
             text-shadow: 2px 2px 5px rgba(0,0,0,0.8); 
         }
 
-        /* SOSYAL LİNKLER (Kabartmalı Butonlar) */
+        /* SOSYAL LİNKLER */
         .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 45px; }
         .icon-btn { 
             color: #aaa; text-decoration: none; font-size: 0.9rem; 
@@ -82,25 +80,25 @@
             box-shadow: 10px 10px 20px #000, -5px -5px 15px rgba(255,255,255, 0.05);
         }
 
-        /* KABARTMALI EXCLUSIVE KARTLAR */
+        /* KABARTMALI HİZMET KARTLARI */
         .glass-card { 
             background: linear-gradient(145deg, #181818, #121212);
             box-shadow: var(--shadow-emboss);
-            border: 1px solid rgba(212, 175, 55, 0.05); /* Çok ince altın çerçeve */
+            border: 1px solid rgba(212, 175, 55, 0.05);
             padding: 25px; 
             margin-bottom: 20px; 
             border-radius: 16px; 
             cursor: pointer; 
             transition: 0.3s ease; 
-            text-align: left;
+            text-align: center; /* Yazıyı Ortala */
             position: relative;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* Seçilince İçeri Çökme Efekti */
-        .glass-card:active {
-            box-shadow: var(--shadow-inset);
-        }
+        .glass-card:active { box-shadow: var(--shadow-inset); }
 
         .glass-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
@@ -115,10 +113,9 @@
         }
         .glass-card.selected::before { opacity: 1; }
 
-        .service-title { font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; }
-        .service-desc { font-size: 0.85rem; color: #999; margin-top: 6px; }
+        .service-title { font-size: 1.3rem; color: #fff; font-weight: 600; letter-spacing: 1px; }
 
-        /* SAATLER (Kabartmalı) */
+        /* SAATLER */
         .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; }
         .time-btn { 
             padding: 15px 5px; 
@@ -140,7 +137,7 @@
         .time-btn:active { box-shadow: var(--shadow-inset); transform: translateY(0); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
-        /* FORM INPUTLARI (İçeri Çökük - Inset) */
+        /* FORM INPUTLARI */
         input { 
             width: 100%; padding: 18px; margin-top: 15px; 
             background: #111;
@@ -151,7 +148,7 @@
         }
         input:focus { border-color: var(--gold); box-shadow: var(--shadow-inset), 0 0 10px rgba(212, 175, 55, 0.1); }
 
-        /* ANA BUTON (Lüks Altın Gradyan) */
+        /* ANA BUTON */
         .btn-main { 
             background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); 
             background-size: 200% auto;
@@ -217,28 +214,16 @@
 
     <div id="step1" class="fade-in delay-2">
         <div class="glass-card" onclick="selectService('SAÇ KESİM', this)">
-            <div>
-                <div class="service-title">SAÇ KESİMİ</div>
-                <div class="service-desc">Yüz hatlarına uygun modern stil</div>
-            </div>
+            <div class="service-title">SAÇ KESİMİ</div>
         </div>
         <div class="glass-card" onclick="selectService('SAÇ SAKAL', this)">
-            <div>
-                <div class="service-title">SAÇ & SAKAL</div>
-                <div class="service-desc">Yıkama dahil tam bakım paketi</div>
-            </div>
+            <div class="service-title">SAÇ & SAKAL</div>
         </div>
         <div class="glass-card" onclick="selectService('VIP BAKIM', this)">
-            <div>
-                <div class="service-title">VIP DENEYİM</div>
-                <div class="service-desc">Saç, sakal, maske ve özel kür</div>
-            </div>
+            <div class="service-title">VIP DENEYİM</div>
         </div>
         <div class="glass-card" onclick="selectService('SAKAL TASARIM', this)">
-            <div>
-                <div class="service-title">SAKAL TASARIM</div>
-                <div class="service-desc">Ustura ile detaylı şekillendirme</div>
-            </div>
+            <div class="service-title">SAKAL TASARIM</div>
         </div>
     </div>
 
