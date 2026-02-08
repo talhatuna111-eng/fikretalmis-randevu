@@ -32,7 +32,9 @@
             color: var(--text); 
             font-family: 'Montserrat', sans-serif; 
             margin: 0; padding: 0;
-            text-align: center; padding-bottom: 50px; min-height: 100vh;
+            text-align: center; 
+            padding-bottom: 120px; /* Alt menü için boşluk bırakıldı */
+            min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
@@ -66,48 +68,66 @@
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: radial-gradient(circle at center, rgba(10, 10, 10, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* --- YENİLENEN MİNİMAL VE ZARİF BUTON --- */
-        .top-btn { 
-            position: absolute; top: 20px; left: 20px; 
-            
-            /* Şeffaf ve Zarif */
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            
-            /* Çok ince altın çerçeve */
-            border: 1px solid rgba(212, 175, 55, 0.5); 
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            
-            /* Boyutlar küçüldü */
-            padding: 6px 12px; 
-            border-radius: 4px; /* Hafif yuvarlak köşe */
-            
-            /* Yazı Ayarları */
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.7rem; /* Daha küçük, kibar font */
-            font-weight: 600; 
-            letter-spacing: 2px; /* Harfler arası açık (Luxury Look) */
-            text-transform: uppercase;
-            
-            cursor: pointer;
-            z-index: 2000; 
-            touch-action: manipulation;
-            display: flex; align-items: center; gap: 6px;
-            transition: all 0.3s;
-        }
-        
-        .top-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); }
-        .top-btn span { font-size: 0.9rem; } /* Taç ikonu boyutu */
-
-        /* --- LOGO KONUMU DÜZELTİLDİ (YUKARI ÇEKİLDİ) --- */
+        /* --- LOGO AYARI (YUKARI ÇEKİLDİ) --- */
         .logo-img { 
-            width: 140px; height: 140px; 
-            border-radius: 50%; border: 2px solid var(--gold); 
-            box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.15); 
+            width: 150px; height: 150px; 
+            border-radius: 50%; border: 3px solid var(--gold); 
+            box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2); 
             object-fit: cover; background-color: #000; 
-            margin-top: 50px; /* 80px'den 50px'e düşürüldü, yukarı çıktı */
+            margin-top: 40px; /* Üstten boşluk azaltıldı */
         }
+
+        /* --- YENİ APP DOCK (ALT MENÜ) TASARIMI --- */
+        .bottom-nav-dock {
+            position: fixed;
+            bottom: 25px; /* Alttan mesafe */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 380px;
+            
+            /* Buzlu Cam Efekti */
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            
+            /* Altın Çerçeve ve Gölge */
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px; /* Hap şeklinde */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 12px 0;
+            z-index: 10000; /* En üstte */
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: #666; /* Pasif renk */
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-item:active { transform: scale(0.95); }
+
+        .nav-icon { font-size: 1.4rem; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5)); }
+        
+        .nav-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Aktif buton rengi (Altın) */
+        .nav-item.active { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
         /* --- VIP KART --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
@@ -241,9 +261,19 @@
 
     <div class="container">
         
-        <button class="top-btn fade-in" onclick="openMyApps()">
-            <span>👑</span> RANDEVULARIM
-        </button>
+        <div class="bottom-nav-dock fade-in delay-2">
+            <div class="nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <span class="nav-icon">✂️</span>
+                <span class="nav-text">RANDEVU AL</span>
+            </div>
+            
+            <div style="width:1px; height:30px; background:rgba(255,255,255,0.1);"></div>
+
+            <div class="nav-item" onclick="openMyApps()">
+                <span class="nav-icon">👑</span>
+                <span class="nav-text">RANDEVULARIM</span>
+            </div>
+        </div>
 
         <div class="logo-container fade-in">
             <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="logo-img">
@@ -459,7 +489,7 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- GÜNCELLENMİŞ VIP KART ---
+                // --- VIP KART ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
