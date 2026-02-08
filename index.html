@@ -103,10 +103,11 @@
             border-color: var(--gold);
         }
 
+        /* DOLU SAATLER İÇİN STİL */
         .time-btn.disabled {
-            background: rgba(183, 28, 28, 0.2);
-            color: #666;
-            border-color: #330000;
+            background: rgba(183, 28, 28, 0.1);
+            color: #555;
+            border-color: #331111;
             cursor: not-allowed;
             text-decoration: line-through;
         }
@@ -127,7 +128,6 @@
 
         input:focus { border-color: var(--gold); }
         
-        /* Tarih Seçici Özelleştirme */
         input[type="date"] {
             color-scheme: dark;
         }
@@ -200,7 +200,7 @@
     </div>
 
 <script>
-    // SENİN GÜNCEL URL'İN BURAYA EKLENDİ
+    // GOOGLE APPS SCRIPT BAĞLANTISI (Artık sadece bu var, Telegram yok)
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
     let selectedService = "";
@@ -213,16 +213,15 @@
         
         selectedService = name + " (" + price + ")";
         
-        // Adım 2'yi aç
         document.getElementById('step2').classList.remove('hidden');
         
-        // Tarih seçiciye bugünü ata
+        // Tarihi bugüne ayarla
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('datePicker');
         if(!dateInput.value) {
             dateInput.value = today;
             dateInput.min = today;
-            loadSlots(); // Bugünün saatlerini getir
+            loadSlots();
         }
         
         document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
@@ -238,15 +237,15 @@
         
         container.innerHTML = "";
         msg.classList.remove('hidden');
-        msg.innerText = "Müsaitlik durumu kontrol ediliyor...";
+        msg.innerText = "Müsait saatler kontrol ediliyor...";
 
-        // Google Sheet'ten verileri çek (GET İsteği)
+        // Google Tablo'dan dolu saatleri sor
         fetch(API_URL)
         .then(res => res.json())
         .then(bookedList => {
             msg.classList.add('hidden');
             
-            // Çalışma Saatleri: 10:00 ile 22:00 arası
+            // Çalışma Saatleri
             const hours = [
                 "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", 
                 "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"
@@ -257,13 +256,13 @@
                 btn.className = 'time-btn';
                 btn.innerText = time;
                 
-                // Kontrol Anahtarı: YYYY-MM-DD_HH:MM
+                // Kontrol Anahtarı: YYYY-MM-DD_HH:MM (Örn: 2026-02-09_11:00)
                 const checkKey = selectedDate + "_" + time;
                 
-                // Eğer bu saat listede varsa kırmızı yap
+                // Eğer Excel'den gelen listede bu saat varsa KIRMIZI yap
                 if(bookedList.includes(checkKey)) {
                     btn.classList.add('disabled');
-                    btn.innerText = time; // İstersen "DOLU" da yazdırabilirsin
+                    btn.title = "Bu saat dolu";
                 } else {
                     btn.onclick = () => selectTime(time, btn);
                 }
@@ -297,7 +296,7 @@
             return;
         }
 
-        btn.innerText = "İŞLENİYOR...";
+        btn.innerText = "İŞLENİYOR LÜTFEN BEKLEYİN...";
         btn.disabled = true;
 
         const data = {
@@ -308,8 +307,7 @@
             hizmet: selectedService
         };
 
-        // Google Sheet'e Kaydet (POST İsteği)
-        // 'text/plain' kullanarak Google Script CORS sorununu aşıyoruz
+        // Arka plana (Google Script) veriyi gönder
         fetch(API_URL, {
             method: "POST",
             body: JSON.stringify(data),
@@ -321,17 +319,18 @@
         .then(response => {
             if(response.status === "success") {
                 alert("Randevunuz başarıyla oluşturuldu! Teşekkürler.");
-                location.reload(); // Sayfayı yenile
+                location.reload(); 
             } else {
-                alert("HATA: " + (response.message || "Bilinmeyen bir hata oluştu."));
+                // Eğer aynı anda başka biri aldıysa burası çalışır
+                alert("HATA: " + response.message);
                 btn.disabled = false;
                 btn.innerText = "TEKRAR DENE";
-                loadSlots(); // Belki o sırada biri kapmıştır, saatleri güncelle
+                loadSlots(); // Saatleri yeniden yükle (Dolu olanı kırmızı yapsın)
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert("Sunucu hatası oluştu. Lütfen WhatsApp'tan yazın.");
+            alert("Sunucu hatası oluştu. Lütfen tekrar deneyin.");
             btn.disabled = false;
             btn.innerText = "TEKRAR DENE";
         });
