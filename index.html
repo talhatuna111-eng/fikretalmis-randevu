@@ -19,10 +19,10 @@
     <style>
         :root { 
             --gold: #D4AF37; 
-            --bg-dark: #0a0a0a;
+            --bg-dark: #050505; /* Arka plan daha koyu yapıldı */
             --text: #e0e0e0;
-            --shadow-emboss: 8px 8px 16px #050505, -4px -4px 12px rgba(255,255,255, 0.05);
-            --shadow-inset: inset 4px 4px 8px #050505, inset -2px -2px 6px rgba(255,255,255, 0.05);
+            --shadow-emboss: 8px 8px 16px #020202, -4px -4px 12px rgba(255,255,255, 0.03);
+            --card-bg: linear-gradient(145deg, #1a1a1a, #0d0d0d);
         }
         * { box-sizing: border-box; }
         
@@ -36,44 +36,109 @@
             position: relative;
         }
 
-        /* ARKA PLAN DOKUSU (VEKTÖR GÖRSEL) */
+        /* --- ARKA PLAN DOKUSU (VEKTÖR GÖRSEL) --- */
         body::before {
             content: '';
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* GÖRSELİ BURAYA KOYUYORUZ */
-            background-image: url('https://i.ibb.co/wF32Gj5T/LOGO.png'); /* Şimdilik logo koydum, sen buraya vektör linkini koyabilirsin */
-            background-size: 500px; /* Deseni büyütüp küçültebilirsin */
+            /* Kullanıcının yüklediği görsel */
+            background-image: url('138.jpg'); 
+            background-size: 600px; /* Desen boyutu */
             background-repeat: repeat;
-            z-index: -2; opacity: 0.03; /* Çok silik dursun */
-            filter: grayscale(100%);
+            z-index: -2; 
+            opacity: 0.05; /* Çok silik, sadece doku hissi */
+            filter: grayscale(100%) contrast(1.2); /* Siyah beyaz ve net */
             pointer-events: none;
         }
 
-        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(26, 26, 26, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%); }
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* TOAST BİLDİRİMİ (SADECE HATALAR İÇİN) */
-        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10002; width: 90%; max-width: 400px; }
-        .toast { background: #1a1a1a; color: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; opacity: 0; transform: translateY(-20px); transition: 0.3s ease; }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.success { border-color: #2ecc71; }
-        .toast.error { border-color: #e74c3c; }
+        /* --- EXCLUSIVE RANDEVU BUTONU --- */
+        .top-btn { 
+            position: absolute; top: 25px; left: 20px; 
+            color: var(--gold); background: rgba(0, 0, 0, 0.8); 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); 
+            padding: 8px 16px; border-radius: 50px; 
+            font-size: 0.8rem; font-weight: 700; 
+            font-family: 'Montserrat', sans-serif;
+            border: 1px solid rgba(212, 175, 55, 0.4); cursor: pointer;
+            z-index: 2000; touch-action: manipulation;
+            display: flex; align-items: center; gap: 6px;
+            letter-spacing: 0.5px; transition: transform 0.2s;
+        }
+        .top-btn:active { transform: scale(0.95); }
 
-        /* VIP KART */
-        .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 10px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
-        .vip-card { width: 100%; max-width: 340px; height: 200px; background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); border-radius: 15px; border: 1px solid #333; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: var(--gold); text-align: left; padding: 25px; transition: transform 0.5s; display: flex; flex-direction: column; justify-content: space-between; }
-        .vip-card:hover { transform: translateY(-5px) rotateX(5deg); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); }
-        .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%); transform: rotate(45deg); animation: shine 4s infinite; }
-        .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .card-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #d4af37, #fdb931); border-radius: 6px; position: relative; overflow: hidden; }
-        .card-chip::after { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(0,0,0,0.3); }
-        .card-chip::before { content: ''; position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: rgba(0,0,0,0.3); }
-        .card-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: bold; opacity: 0.9; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .card-center { margin-top: 20px; }
-        .card-customer-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); }
-        .card-appointment-date { font-family: 'Courier New', monospace; font-size: 1.1rem; font-weight: bold; color: #fff; opacity: 0.8; letter-spacing: 2px; }
+        /* --- VIP KART TASARIMI (RESİMDEKİ GİBİ DÜZELTİLDİ) --- */
+        .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
+        
+        .vip-card { 
+            width: 100%; max-width: 360px; height: 210px; /* Kredi kartı oranı */
+            background: #111;
+            background-image: linear-gradient(135deg, #1a1a1a 0%, #050505 100%);
+            border-radius: 16px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            position: relative; overflow: hidden; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
+            color: var(--gold); 
+            padding: 25px; 
+            display: flex; flex-direction: column; justify-content: space-between;
+            text-align: left;
+        }
 
-        /* PRELOADER */
+        /* Kartın üzerindeki hafif parlama */
+        .vip-card::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+            transform: rotate(30deg); animation: shine 6s infinite linear; pointer-events: none;
+        }
+        @keyframes shine { from { transform: translateX(-100%) rotate(30deg); } to { transform: translateX(100%) rotate(30deg); } }
+
+        /* Kart Üst Kısım: Çip ve Marka */
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .card-chip { 
+            width: 45px; height: 32px; 
+            background: linear-gradient(135deg, #e6c55c 0%, #b88a28 100%); 
+            border-radius: 5px; position: relative; 
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .card-chip::before { content:''; position:absolute; left:50%; top:0; width:1px; height:100%; background:rgba(0,0,0,0.2); }
+        .card-chip::after { content:''; position:absolute; top:50%; left:0; width:100%; height:1px; background:rgba(0,0,0,0.2); }
+        
+        .card-brand { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.2rem; 
+            letter-spacing: 1px; 
+            color: #D4AF37;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* Kart Orta Kısım: Numara */
+        .card-number-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f0e68c; /* Biraz daha açık altın */
+            letter-spacing: 3px;
+            text-align: center;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.9);
+            margin: 15px 0;
+        }
+
+        /* Kart Alt Kısım: İsim ve Valid Thru */
+        .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+        .card-label { font-size: 0.5rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .card-value { 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            text-transform: uppercase; 
+            color: #D4AF37; 
+            font-weight: bold; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+        }
+
+        /* --- GENEL STİLLER --- */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease-out; }
         .preloader-logo { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); animation: pulse 1.5s infinite; }
         .preloader-text { color: var(--gold); font-family: 'Playfair Display', serif; margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: fadeIn 2s; }
@@ -91,7 +156,7 @@
         .icon-btn svg { fill: currentColor; }
         .icon-btn:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
 
-        .glass-card { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; cursor: pointer; transition: 0.3s ease; text-align: center; position: relative; display: flex; justify-content: center; align-items: center; z-index: 20; }
+        .glass-card { background: var(--card-bg); box-shadow: var(--shadow-emboss); border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; cursor: pointer; transition: 0.3s ease; text-align: center; position: relative; display: flex; justify-content: center; align-items: center; z-index: 20; }
         .glass-card:active { box-shadow: var(--shadow-inset); }
         .glass-card.selected { border-color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.01); }
         .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
@@ -110,19 +175,11 @@
         .btn-main { background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200%; color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; text-transform: uppercase; position: relative; z-index: 20; }
         .btn-main:active { transform: scale(0.98); }
 
-        .top-btn { 
-            position: absolute; top: 25px; left: 20px; 
-            color: var(--gold); background: rgba(10, 10, 10, 0.9); 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); 
-            padding: 12px 24px; border-radius: 50px; 
-            font-size: 0.95rem; font-weight: 800; 
-            font-family: 'Montserrat', sans-serif;
-            border: 1px solid var(--gold); cursor: pointer;
-            z-index: 2000; touch-action: manipulation;
-            display: flex; align-items: center; gap: 8px;
-            letter-spacing: 0.5px; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .top-btn:active { transform: scale(0.95); }
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10002; width: 90%; max-width: 400px; }
+        .toast { background: #1a1a1a; color: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; opacity: 0; transform: translateY(-20px); transition: 0.3s ease; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { border-color: #2ecc71; }
+        .toast.error { border-color: #e74c3c; }
 
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 9999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
@@ -154,7 +211,7 @@
 
     <div class="container">
         <button class="top-btn fade-in" onclick="openMyApps()">
-            <span style="font-size: 1.2rem;">📅</span> Randevularım
+            <span style="font-size: 1rem;">📅</span> Randevularım
         </button>
 
         <div class="logo-container fade-in">
@@ -291,7 +348,7 @@
         
         const dateObj = new Date(dVal);
         if(dateObj.getDay() === 0) {
-            // PAZAR GÜNÜ UYARISI (TOAST DEĞİL, ALTTA YAZI)
+            // PAZAR GÜNÜ UYARISI (ALTTA KIRMIZI YAZI)
             msg.classList.remove('hidden');
             msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b>";
             msg.style.color = "#ff4444";
@@ -365,15 +422,34 @@
             else {
                 let customerName = "DEĞERLİ MÜŞTERİ";
                 if(data[0].isim) customerName = data[0].isim.toUpperCase();
+                
                 let rawDate = data[0].tarih.split('-'); 
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let lastDate = fixDate + " • " + data[0].saat;
 
+                // --- GÜNCELLENMİŞ VIP KART TASARIMI ---
+                let formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
+
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
-                        <div class="card-top"><div class="card-chip"></div><div class="card-brand">FİKRET ALMIŞ</div></div>
-                        <div class="card-center"><div class="card-customer-name">${customerName}</div><div class="card-appointment-date">${lastDate}</div></div>
+                        <div class="card-header">
+                            <div class="card-chip"></div>
+                            <div class="card-brand">FİKRET ALMIŞ</div>
+                        </div>
+                        
+                        <div class="card-number-display">${formattedPhone}</div>
+                        
+                        <div class="card-footer">
+                            <div>
+                                <div class="card-label">MEMBER NAME</div>
+                                <div class="card-value">${customerName}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="card-label">VALID THRU</div>
+                                <div class="card-value">∞</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h3 class="section-title" style="margin-top:0;">GEÇMİŞ İŞLEMLER</h3>`;
@@ -386,7 +462,7 @@
                         <div>
                             <div style="font-weight:bold; font-size:1.1rem; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
                             <div style="color:#fff; font-weight:bold; font-size:1.1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
-                            <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
+                            <div style="color:#fff; font-weight:600; font-size:1rem;">${appt.hizmet}</div>
                         </div>
                         <button class="cancel-btn" onclick="cancelAppointment('${appt.tarih}', '${appt.saat}', '${phone}')">İPTAL ET</button>
                     </div>`;
