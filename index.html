@@ -19,7 +19,7 @@
     <style>
         :root { 
             --gold: #D4AF37; 
-            --bg-dark: #050505; /* Arka plan daha koyu yapıldı */
+            --bg-dark: #050505;
             --text: #e0e0e0;
             --shadow-emboss: 8px 8px 16px #020202, -4px -4px 12px rgba(255,255,255, 0.03);
             --card-bg: linear-gradient(145deg, #1a1a1a, #0d0d0d);
@@ -36,24 +36,23 @@
             position: relative;
         }
 
-        /* --- ARKA PLAN DOKUSU (VEKTÖR GÖRSEL) --- */
+        /* --- ARKA PLAN DOKUSU --- */
         body::before {
             content: '';
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Kullanıcının yüklediği görsel */
-            background-image: url('138.jpg'); 
-            background-size: 600px; /* Desen boyutu */
+            /* Bilgisayarındaki 138.jpg dosyasının proje klasöründe olduğundan emin ol */
+            background-image: url('vector-monochrome-collection-barbershop-tools.zip/138.jpg'); 
+            background-size: 600px;
             background-repeat: repeat;
-            z-index: -2; 
-            opacity: 0.05; /* Çok silik, sadece doku hissi */
-            filter: grayscale(100%) contrast(1.2); /* Siyah beyaz ve net */
+            z-index: -2; opacity: 0.05; 
+            filter: grayscale(100%) contrast(1.2);
             pointer-events: none;
         }
 
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* --- EXCLUSIVE RANDEVU BUTONU --- */
+        /* --- BUTON (SOL ÜST, KİBAR) --- */
         .top-btn { 
             position: absolute; top: 25px; left: 20px; 
             color: var(--gold); background: rgba(0, 0, 0, 0.8); 
@@ -68,11 +67,11 @@
         }
         .top-btn:active { transform: scale(0.95); }
 
-        /* --- VIP KART TASARIMI (RESİMDEKİ GİBİ DÜZELTİLDİ) --- */
+        /* --- VIP KART TASARIMI --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
         
         .vip-card { 
-            width: 100%; max-width: 360px; height: 210px; /* Kredi kartı oranı */
+            width: 100%; max-width: 360px; height: 210px;
             background: #111;
             background-image: linear-gradient(135deg, #1a1a1a 0%, #050505 100%);
             border-radius: 16px; 
@@ -85,7 +84,6 @@
             text-align: left;
         }
 
-        /* Kartın üzerindeki hafif parlama */
         .vip-card::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
@@ -93,7 +91,7 @@
         }
         @keyframes shine { from { transform: translateX(-100%) rotate(30deg); } to { transform: translateX(100%) rotate(30deg); } }
 
-        /* Kart Üst Kısım: Çip ve Marka */
+        /* Kart Üst Kısım */
         .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
         .card-chip { 
             width: 45px; height: 32px; 
@@ -106,39 +104,34 @@
         
         .card-brand { 
             font-family: 'Playfair Display', serif; 
-            font-size: 1.2rem; 
-            letter-spacing: 1px; 
-            color: #D4AF37;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            font-size: 1.2rem; letter-spacing: 1px; color: #D4AF37;
+            text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* Kart Orta Kısım: Numara */
+        /* Kart Orta Kısım: TARİH VE SAAT (DÜZELTİLDİ) */
         .card-number-display {
             font-family: 'Courier New', monospace;
-            font-size: 1.5rem;
+            font-size: 1.35rem; /* Tarih sığsın diye biraz küçülttüm */
             font-weight: bold;
-            color: #f0e68c; /* Biraz daha açık altın */
-            letter-spacing: 3px;
+            color: #f0e68c;
+            letter-spacing: 2px;
             text-align: center;
             text-shadow: 0 2px 2px rgba(0,0,0,0.9);
             margin: 15px 0;
+            white-space: nowrap; /* Alt satıra inmesin */
         }
 
-        /* Kart Alt Kısım: İsim ve Valid Thru */
+        /* Kart Alt Kısım */
         .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
         .card-label { font-size: 0.5rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         .card-value { 
             font-family: 'Courier New', monospace; 
-            font-size: 0.95rem; 
-            text-transform: uppercase; 
-            color: #D4AF37; 
-            font-weight: bold; 
-            letter-spacing: 1px; 
-            text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+            font-size: 0.95rem; text-transform: uppercase; 
+            color: #D4AF37; font-weight: bold; 
+            letter-spacing: 1px; text-shadow: 0 1px 1px rgba(0,0,0,0.8);
         }
 
-        /* --- GENEL STİLLER --- */
+        /* --- DİĞER STİLLER --- */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease-out; }
         .preloader-logo { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); animation: pulse 1.5s infinite; }
         .preloader-text { color: var(--gold); font-family: 'Playfair Display', serif; margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: fadeIn 2s; }
@@ -425,10 +418,7 @@
                 
                 let rawDate = data[0].tarih.split('-'); 
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
-                let lastDate = fixDate + " • " + data[0].saat;
-
-                // --- GÜNCELLENMİŞ VIP KART TASARIMI ---
-                let formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
+                let mainDisplay = fixDate + " • " + data[0].saat;
 
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
@@ -438,7 +428,7 @@
                             <div class="card-brand">FİKRET ALMIŞ</div>
                         </div>
                         
-                        <div class="card-number-display">${formattedPhone}</div>
+                        <div class="card-number-display">${mainDisplay}</div>
                         
                         <div class="card-footer">
                             <div>
