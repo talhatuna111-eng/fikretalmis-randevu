@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fikret Almış | Exclusive</title>
-    <meta name="apple-mobile-web-app-title" content="Fikret Almış">
     
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
@@ -32,13 +31,50 @@
             background-attachment: fixed;
             color: var(--text); 
             font-family: 'Montserrat', sans-serif; 
-            margin: 0; padding: 20px; text-align: center; padding-bottom: 50px; min-height: 100vh;
+            margin: 0; padding: 0; /* Margin padding sıfırlandı (Duyuru bandı için) */
+            text-align: center; padding-bottom: 50px; min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* --- 1. GİRİŞ ANİMASYONU (PRELOADER) --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-out;
+        }
+        .preloader-logo {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 2px solid var(--gold);
+            animation: pulse 1.5s infinite;
+        }
+        .preloader-text {
+            color: var(--gold); font-family: 'Playfair Display', serif;
+            margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px;
+            animation: fadeIn 2s;
+        }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+
+        /* --- 2. DUYURU BANDI (NOTIFICATION BAR) --- */
+        .notification-bar {
+            background: linear-gradient(90deg, #b8860b, #FDB931);
+            color: #000; font-size: 0.85rem; font-weight: bold;
+            padding: 8px 0; width: 100%; position: relative; z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            overflow: hidden; white-space: nowrap;
+        }
+        .marquee { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* ANA İÇERİK MARGIN AYARI */
+        .container { padding: 20px; }
+
+        /* LOGO */
         .logo-img { 
             width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); 
             box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2);
-            object-fit: cover; background-color: #000; margin-top: 30px;
+            object-fit: cover; background-color: #000; margin-top: 10px;
         }
         
         h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin: 25px 0 35px 0; letter-spacing: 2px; font-size: 2rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
@@ -87,13 +123,21 @@
         }
         .btn-main:active { transform: scale(0.98); }
 
-        .top-btn { position: absolute; top: 20px; right: 20px; color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; }
+        .top-btn { position: absolute; top: 50px; right: 20px; color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; }
 
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; }
         .success-box { background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; }
-        .appt-item { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; }
+        
+        /* İPTAL BUTONLU RANDEVU KARTI */
+        .appt-item { 
+            background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cancel-btn {
+            background: #330000; color: #ff4444; border: 1px solid #ff4444; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; cursor: pointer; margin-left: 10px;
+        }
 
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -103,80 +147,91 @@
 </head>
 <body>
 
-    <button class="top-btn fade-in" onclick="openMyApps()">📅 Randevularım</button>
-
-    <div class="logo-container fade-in">
-        <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="logo-img">
+    <div id="preloader">
+        <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="preloader-logo">
+        <div class="preloader-text">FİKRET ALMIŞ</div>
     </div>
 
-    <h1 class="fade-in">FİKRET ALMIŞ</h1>
-
-    <div class="social-links fade-in delay-1">
-        <a href="https://maps.google.com/?cid=10836908038455966931&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="icon-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-            Konum
-        </a>
-        <a href="https://www.instagram.com/berberfikretalmis/" target="_blank" class="icon-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.244.048.78.036 1.203.166 1.485.276.374.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.114.047 3.244s-.008 2.401-.047 3.244c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.281.11-.704.24-1.485.276-.84.039-1.114.047-3.244.047s-2.401-.008-3.244-.047c-.78-.035-1.203-.166-1.485-.275a2.475 2.475 0 0 1-.919-.599 2.477 2.477 0 0 1-.599-.92c-.11-.281-.24-.704-.276-1.485-.039-.843-.047-1.114-.047-3.244s.008-2.401.047-3.244c.035-.78.166-1.203.276-1.485.145-.374.319-.64.599-.92.28-.28.546-.453.92-.598.281-.11.705-.24 1.485-.276.843-.039 1.114-.047 3.244-.047z"/><path d="M8 4.192a3.808 3.808 0 1 0 0 7.616 3.808 3.808 0 0 0 0-7.616zM8 10.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/><path d="M12.565 4.566a1.128 1.128 0 1 1-2.256 0 1.128 1.128 0 0 1 2.256 0z"/></svg>
-            Instagram
-        </a>
+    <div class="notification-bar">
+        <div class="marquee">📢 Bayram öncesi yoğunluktan dolayı randevularınızı erken oluşturunuz. Pazar günleri kapalıyız. 📢</div>
     </div>
 
-    <div id="step1" class="fade-in delay-2">
-        <h3 class="section-title">KİMİNLE TIRAŞ OLMAK İSTERSİNİZ?</h3>
-        
-        <div class="glass-card" onclick="selectBarber('FİKRET ALMIŞ', this)">
-            <div>
-                <div class="card-title">FİKRET ALMIŞ</div>
-                <div class="card-subtitle">İşletme Sahibi</div>
-            </div>
-        </div>
-        
-        <div class="glass-card" onclick="selectBarber('Alperen', this)">
-            <div>
-                <div class="card-title">ALPEREN</div>
-                <div class="card-subtitle">Profesyonel Saç Tasarım</div>
-            </div>
+    <div class="container">
+        <button class="top-btn fade-in" onclick="openMyApps()">📅 Randevularım</button>
+
+        <div class="logo-container fade-in">
+            <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="logo-img">
         </div>
 
-        <div class="glass-card" onclick="selectBarber('Yunus', this)">
-            <div>
-                <div class="card-title">YUNUS</div>
-                <div class="card-subtitle">Profesyonel Saç Tasarım</div>
+        <h1 class="fade-in">FİKRET ALMIŞ</h1>
+
+        <div class="social-links fade-in delay-1">
+            <a href="https://maps.google.com/?cid=10836908038455966931&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="icon-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                Konum
+            </a>
+            <a href="https://www.instagram.com/berberfikretalmis/" target="_blank" class="icon-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.244.048.78.036 1.203.166 1.485.276.374.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.114.047 3.244s-.008 2.401-.047 3.244c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.281.11-.704.24-1.485.276-.84.039-1.114.047-3.244.047s-2.401-.008-3.244-.047c-.78-.035-1.203-.166-1.485-.275a2.475 2.475 0 0 1-.919-.599 2.477 2.477 0 0 1-.599-.92c-.11-.281-.24-.704-.276-1.485-.039-.843-.047-1.114-.047-3.244s.008-2.401.047-3.244c.035-.78.166-1.203.276-1.485.145-.374.319-.64.599-.92.28-.28.546-.453.92-.598.281-.11.705-.24 1.485-.276.843-.039 1.114-.047 3.244-.047z"/><path d="M8 4.192a3.808 3.808 0 1 0 0 7.616 3.808 3.808 0 0 0 0-7.616zM8 10.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/><path d="M12.565 4.566a1.128 1.128 0 1 1-2.256 0 1.128 1.128 0 0 1 2.256 0z"/></svg>
+                Instagram
+            </a>
+        </div>
+
+        <div id="step1" class="fade-in delay-2">
+            <h3 class="section-title">KİMİNLE TIRAŞ OLMAK İSTERSİNİZ?</h3>
+            
+            <div class="glass-card" onclick="selectBarber('FİKRET ALMIŞ', this)">
+                <div>
+                    <div class="card-title">FİKRET ALMIŞ</div>
+                    <div class="card-subtitle">İşletme Sahibi</div>
+                </div>
+            </div>
+            
+            <div class="glass-card" onclick="selectBarber('Alperen', this)">
+                <div>
+                    <div class="card-title">ALPEREN</div>
+                    <div class="card-subtitle">Profesyonel Saç Tasarım</div>
+                </div>
+            </div>
+
+            <div class="glass-card" onclick="selectBarber('Yunus', this)">
+                <div>
+                    <div class="card-title">YUNUS</div>
+                    <div class="card-subtitle">Profesyonel Saç Tasarım</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="step2" class="hidden fade-in">
-        <h3 class="section-title">HİZMET SEÇİNİZ</h3>
-        <div class="glass-card" onclick="selectService('SAÇ KESİM', this)"><div class="card-title">SAÇ KESİMİ</div></div>
-        <div class="glass-card" onclick="selectService('SAÇ SAKAL', this)"><div class="card-title">SAÇ & SAKAL</div></div>
-        <div class="glass-card" onclick="selectService('VIP BAKIM', this)"><div class="card-title">VIP DENEYİM</div></div>
-        <div class="glass-card" onclick="selectService('SAKAL TASARIM', this)"><div class="card-title">SAKAL TASARIM</div></div>
-    </div>
+        <div id="step2" class="hidden fade-in">
+            <h3 class="section-title">HİZMET SEÇİNİZ</h3>
+            <div class="glass-card" onclick="selectService('SAÇ KESİM', this)"><div class="card-title">SAÇ KESİMİ</div></div>
+            <div class="glass-card" onclick="selectService('SAÇ SAKAL', this)"><div class="card-title">SAÇ & SAKAL</div></div>
+            <div class="glass-card" onclick="selectService('VIP BAKIM', this)"><div class="card-title">VIP DENEYİM</div></div>
+            <div class="glass-card" onclick="selectService('SAKAL TASARIM', this)"><div class="card-title">SAKAL TASARIM</div></div>
+        </div>
 
-    <div id="step3" class="hidden fade-in">
-        <h3 class="section-title">TARİH & SAAT</h3>
-        <input type="date" id="datePicker" onchange="loadSlots()">
-        <p id="slotMsg" class="hidden" style="color:var(--gold); font-size:0.9rem; margin:15px 0;">Müsaitlik kontrol ediliyor...</p>
-        <div class="time-slots" id="slotsContainer"></div>
-    </div>
+        <div id="step3" class="hidden fade-in">
+            <h3 class="section-title">TARİH & SAAT</h3>
+            <input type="date" id="datePicker" onchange="loadSlots()">
+            <p id="slotMsg" class="hidden" style="color:var(--gold); font-size:0.9rem; margin:15px 0;">Müsaitlik kontrol ediliyor...</p>
+            <div class="time-slots" id="slotsContainer"></div>
+        </div>
 
-    <div id="step4" class="hidden fade-in">
-        <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
-        <input type="text" id="name" placeholder="Adınız Soyadınız">
-        <input type="tel" id="phone" placeholder="Telefon (5XX...) - Başında 0 olmadan">
-        <button class="btn-main" onclick="bookAppointment()">RANDEVUYU ONAYLA</button>
-    </div>
+        <div id="step4" class="hidden fade-in">
+            <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
+            <input type="text" id="name" placeholder="Adınız Soyadınız">
+            <input type="tel" id="phone" placeholder="Telefon (5XX...) - Başında 0 olmadan">
+            <button class="btn-main" onclick="bookAppointment()">RANDEVUYU ONAYLA</button>
+        </div>
 
-    <div id="step5" class="hidden fade-in">
-        <div class="success-box">
-            <div style="font-size: 4rem; margin-bottom:20px;">✨</div>
-            <h2 style="color: var(--gold); margin: 0; font-size: 1.8rem;">RANDEVU ONAYLANDI</h2>
-            <p style="color: #ccc; margin-top: 20px; font-size:1rem; line-height:1.6;">
-                Kaydınız başarıyla oluşturulmuştur.<br>Sizi bekliyoruz.
-            </p>
-            <button class="btn-main" onclick="location.reload()" style="background:transparent; border:2px solid #555; color:#fff; margin-top:30px; font-size:0.9rem; padding: 15px;">ANA SAYFA</button>
+        <div id="step5" class="hidden fade-in">
+            <div class="success-box">
+                <div style="font-size: 4rem; margin-bottom:20px;">✨</div>
+                <h2 style="color: var(--gold); margin: 0; font-size: 1.8rem;">RANDEVU ONAYLANDI</h2>
+                <p style="color: #ccc; margin-top: 20px; font-size:1rem; line-height:1.6;">
+                    Kaydınız başarıyla oluşturulmuştur.<br>Sizi bekliyoruz.
+                </p>
+                <button class="btn-main" onclick="location.reload()" style="background:transparent; border:2px solid #555; color:#fff; margin-top:30px; font-size:0.9rem; padding: 15px;">ANA SAYFA</button>
+            </div>
         </div>
     </div>
 
@@ -192,32 +247,31 @@
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
-    // Değişkenler
-    let selectedBarber = ""; 
-    let selectedService = "";
-    let selectedDate = "";
-    let selectedTime = "";
+    // YÜKLEME ANİMASYONU KAPATMA
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('preloader').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('preloader').style.display = 'none';
+            }, 800);
+        }, 1500); // 1.5 saniye bekle
+    });
 
-    // UI Fonksiyonları
+    let selectedBarber = "", selectedService = "", selectedDate = "", selectedTime = "";
+
     function openMyApps() { document.getElementById('myAppsModal').classList.remove('hidden'); }
     function closeMyApps() { document.getElementById('myAppsModal').classList.add('hidden'); }
 
-    // ADIM 1: PERSONEL SEÇİMİ
     function selectBarber(name, el) {
         document.querySelectorAll('#step1 .glass-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedBarber = name;
-        
+        el.classList.add('selected'); selectedBarber = name;
         document.getElementById('step2').classList.remove('hidden');
         setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth'}), 200);
     }
 
-    // ADIM 2: HİZMET SEÇİMİ
     function selectService(name, el) {
         document.querySelectorAll('#step2 .glass-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected'); 
-        selectedService = name;
-        
+        el.classList.add('selected'); selectedService = name;
         document.getElementById('step3').classList.remove('hidden');
         const today = new Date().toISOString().split('T')[0];
         const d = document.getElementById('datePicker');
@@ -225,7 +279,6 @@
         setTimeout(() => document.getElementById('step3').scrollIntoView({behavior:'smooth'}), 200);
     }
 
-    // ADIM 3: SAATLERİ YÜKLE
     function loadSlots() {
         const dInput = document.getElementById('datePicker');
         const dVal = dInput.value;
@@ -237,9 +290,7 @@
             msg.classList.remove('hidden');
             msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b>";
             msg.style.color = "#ff4444";
-            dInput.value = ""; 
-            document.getElementById('slotsContainer').innerHTML = "";
-            return;
+            dInput.value = ""; document.getElementById('slotsContainer').innerHTML = ""; return;
         }
 
         selectedDate = dVal;
@@ -257,7 +308,6 @@
                 const b = document.createElement('div');
                 b.className = 'time-btn'; b.innerText = t;
                 const key = selectedDate + "_" + t;
-                
                 if(booked.includes(key)) b.classList.add('disabled');
                 else b.onclick = () => {
                     document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('selected'));
@@ -270,7 +320,6 @@
         });
     }
 
-    // RANDEVU KAYDETME
     function bookAppointment() {
         const n = document.getElementById('name').value;
         const p = document.getElementById('phone').value;
@@ -278,14 +327,7 @@
         if(!n || !p) { alert("Lütfen isim ve numara giriniz."); return; }
         b.innerText = "KAYDEDİLİYOR..."; b.disabled = true;
         
-        const data = {
-            tarih: selectedDate, 
-            saat: selectedTime, 
-            isim: n, 
-            telefon: p, 
-            hizmet: selectedService,
-            personel: selectedBarber 
-        };
+        const data = { tarih: selectedDate, saat: selectedTime, isim: n, telefon: p, hizmet: selectedService, personel: selectedBarber };
         
         fetch(API_URL, { method: "POST", body: JSON.stringify(data) })
         .then(res => res.json()).then(res => {
@@ -301,7 +343,7 @@
         });
     }
 
-    // RANDEVULARIM SORGUSU
+    // RANDEVU SORGULAMA VE İPTAL BUTONU EKLENDİ
     function checkAppointments() {
         const phone = document.getElementById('searchPhone').value;
         const listDiv = document.getElementById('myAppsList');
@@ -317,15 +359,36 @@
                 data.forEach(appt => {
                     listDiv.innerHTML += `
                     <div class="appt-item">
-                        <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
-                        <div style="color:#fff; font-size:1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
-                        <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
+                        <div>
+                            <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">${appt.tarih} | ${appt.saat}</div>
+                            <div style="color:#fff; font-size:1rem; margin-bottom:5px;">✂️ ${appt.personel}</div>
+                            <div style="color:#ddd; font-size:0.9rem">${appt.hizmet}</div>
+                        </div>
+                        <button class="cancel-btn" onclick="cancelAppointment('${appt.tarih}', '${appt.saat}', '${phone}')">İPTAL ET</button>
                     </div>`;
                 });
             }
         })
-        .catch(err => {
-            listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>";
+        .catch(err => { listDiv.innerHTML = "<p style='color:#fff'>Hata oluştu.</p>"; });
+    }
+
+    // 3. İPTAL FONKSİYONU (YENİ)
+    function cancelAppointment(date, time, phone) {
+        if(!confirm("Bu randevuyu iptal etmek istediğinize emin misiniz?")) return;
+        
+        const listDiv = document.getElementById('myAppsList');
+        listDiv.innerHTML = '<p style="color:red;">İptal ediliyor...</p>';
+
+        fetch(`${API_URL}?action=cancel_appointment&date=${date}&time=${time}&phone=${phone}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === "success") {
+                alert("Randevunuz iptal edilmiştir.");
+                checkAppointments(); // Listeyi yenile
+            } else {
+                alert("Hata: " + data.message);
+                checkAppointments();
+            }
         });
     }
 </script>
