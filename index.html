@@ -19,14 +19,15 @@
             --gold: #D4AF37; 
             --bg-dark: #0a0a0a;
             --text: #e0e0e0;
+            /* Kabartma Efekti Gölgeleri */
             --shadow-emboss: 8px 8px 16px #050505, -4px -4px 12px rgba(255,255,255, 0.05);
             --shadow-inset: inset 4px 4px 8px #050505, inset -2px -2px 6px rgba(255,255,255, 0.05);
-            --error-color: #ff4444;
         }
         * { box-sizing: border-box; }
         
         body { 
             background-color: var(--bg-dark);
+            /* Dokulu Arka Plan */
             background-image: 
                 radial-gradient(circle at center, rgba(30,30,30,0.4) 0%, rgba(0,0,0,0.8) 100%),
                 repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px);
@@ -60,7 +61,7 @@
             text-shadow: 2px 2px 5px rgba(0,0,0,0.8); 
         }
 
-        /* SOSYAL LİNKLER */
+        /* SOSYAL LİNKLER (GÜNCELLENDİ) */
         .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 45px; }
         .icon-btn { 
             color: #aaa; text-decoration: none; font-size: 0.9rem; 
@@ -69,9 +70,12 @@
             background: linear-gradient(145deg, #1a1a1a, #111);
             box-shadow: var(--shadow-emboss);
             border: 1px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 10px;
             transition: 0.3s;
         }
+        /* İkonların renginin değişmesini sağlar */
+        .icon-btn svg { fill: currentColor; transition: 0.3s; }
+        
         .icon-btn:hover { 
             color: var(--gold); 
             border-color: var(--gold); 
@@ -79,7 +83,7 @@
             box-shadow: 10px 10px 20px #000, -5px -5px 15px rgba(255,255,255, 0.05);
         }
 
-        /* HİZMET KARTLARI */
+        /* KABARTMALI HİZMET KARTLARI */
         .glass-card { 
             background: linear-gradient(145deg, #181818, #121212);
             box-shadow: var(--shadow-emboss);
@@ -89,7 +93,7 @@
             border-radius: 16px; 
             cursor: pointer; 
             transition: 0.3s ease; 
-            text-align: center;
+            text-align: center; 
             position: relative;
             overflow: hidden;
             display: flex;
@@ -98,10 +102,12 @@
         }
         
         .glass-card:active { box-shadow: var(--shadow-inset); }
+
         .glass-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
             background: var(--gold); opacity: 0; transition: 0.3s;
         }
+
         .glass-card.selected { 
             border-color: var(--gold); 
             background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
@@ -119,55 +125,78 @@
             background: linear-gradient(145deg, #1a1a1a, #111);
             box-shadow: var(--shadow-emboss);
             border: 1px solid rgba(255,255,255,0.03);
-            color: #fff; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
+            color: #fff; 
+            border-radius: 10px; 
+            font-size: 0.9rem; 
+            cursor: pointer; 
+            transition: 0.2s;
         }
         .time-btn.selected { 
-            background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); 
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); transform: translateY(-2px);
+            background: var(--gold); 
+            color: #000; font-weight: bold; border-color: var(--gold); 
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
         }
         .time-btn:active { box-shadow: var(--shadow-inset); transform: translateY(0); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
-        /* INPUTS */
+        /* FORM INPUTLARI */
         input { 
             width: 100%; padding: 18px; margin-top: 15px; 
-            background: #111; box-shadow: var(--shadow-inset);
-            border: 1px solid rgba(255,255,255,0.05); color: #fff; border-radius: 12px; font-size: 1.1rem; outline: none; transition: 0.3s;
+            background: #111;
+            box-shadow: var(--shadow-inset);
+            border: 1px solid rgba(255,255,255,0.05); 
+            color: #fff; border-radius: 12px; font-size: 1.1rem; outline: none; 
+            transition: 0.3s;
         }
         input:focus { border-color: var(--gold); box-shadow: var(--shadow-inset), 0 0 10px rgba(212, 175, 55, 0.1); }
 
         /* ANA BUTON */
         .btn-main { 
-            background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); background-size: 200% auto;
+            background: linear-gradient(135deg, #b8860b, #FDB931, #b8860b); 
+            background-size: 200% auto;
             color: #000; width: 100%; padding: 20px; border: none; border-radius: 12px; 
             font-weight: bold; margin-top: 35px; cursor: pointer; font-size: 1.1rem; 
             text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25); transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+            transition: 0.4s;
         }
         .btn-main:hover { background-position: right center; }
         .btn-main:active { transform: scale(0.98); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
 
-        /* RANDEVULARIM */
+        /* RANDEVULARIM BUTONU */
         .top-btn { 
             position: absolute; top: 20px; right: 20px; 
-            color: var(--gold); background: linear-gradient(145deg, #1a1a1a, #111);
-            box-shadow: var(--shadow-emboss); padding: 10px 18px; border-radius: 25px; 
-            font-size: 0.8rem; border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; 
+            color: var(--gold); 
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            box-shadow: var(--shadow-emboss);
+            padding: 10px 18px; border-radius: 25px; font-size: 0.8rem; 
+            border: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer; 
         }
         .top-btn:active { box-shadow: var(--shadow-inset); }
 
-        /* MODAL */
+        /* MODAL & HELPERS */
         .hidden { display: none !important; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.97); z-index: 999; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; }
-        .success-box { background: linear-gradient(145deg, #1a1a1a, #111); box-shadow: var(--shadow-emboss); border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; }
-        .appt-item { background: linear-gradient(145deg, #181818, #121212); box-shadow: var(--shadow-emboss); padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; }
+        
+        .success-box { 
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            box-shadow: var(--shadow-emboss);
+            border: 2px solid var(--gold); padding: 50px 30px; border-radius: 25px; margin-top: 60px; 
+        }
+        .appt-item { 
+            background: linear-gradient(145deg, #181818, #121212);
+            box-shadow: var(--shadow-emboss);
+            padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 15px; text-align: left; border-radius: 10px; font-size: 1.1rem; 
+        }
 
-        /* ANIMASYON */
+        /* Animasyon */
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .delay-1 { animation-delay: 0.15s; }
         .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
 
     </style>
 </head>
@@ -182,8 +211,14 @@
     <h1 class="fade-in">FİKRET ALMIŞ</h1>
 
     <div class="social-links fade-in delay-1">
-        <a href="https://maps.google.com/?cid=10836908038455966931&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="icon-btn">📍 Konum</a>
-        <a href="https://www.instagram.com/berberfikretalmis/" target="_blank" class="icon-btn">📸 Instagram</a>
+        <a href="https://goo.gl/maps/YOUR_ACTUAL_MAP_LINK_HERE" target="_blank" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+            Konum
+        </a>
+        <a href="https://www.instagram.com/berberfikretalmis/" target="_blank" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.244.048.78.036 1.203.166 1.485.276.374.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.114.047 3.244s-.008 2.401-.047 3.244c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.281.11-.704.24-1.485.276-.84.039-1.114.047-3.244.047s-2.401-.008-3.244-.047c-.78-.035-1.203-.166-1.485-.275a2.475 2.475 0 0 1-.919-.599 2.477 2.477 0 0 1-.599-.92c-.11-.281-.24-.704-.276-1.485-.039-.843-.047-1.114-.047-3.244s.008-2.401.047-3.244c.035-.78.166-1.203.276-1.485.145-.374.319-.64.599-.92.28-.28.546-.453.92-.598.281-.11.705-.24 1.485-.276.843-.039 1.114-.047 3.244-.047z"/><path d="M8 4.192a3.808 3.808 0 1 0 0 7.616 3.808 3.808 0 0 0 0-7.616zM8 10.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/><path d="M12.565 4.566a1.128 1.128 0 1 1-2.256 0 1.128 1.128 0 0 1 2.256 0z"/></svg>
+            Instagram
+        </a>
     </div>
 
     <div id="step1" class="fade-in delay-2">
@@ -276,32 +311,27 @@
         setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth'}), 200);
     }
 
-    // PAZAR GÜNÜ KONTROLÜ EKLENDİ
+    // PAZAR GÜNÜ KONTROLÜ
     function loadSlots() {
         const dInput = document.getElementById('datePicker');
         const dVal = dInput.value;
-        
         if(!dVal) return;
         
-        // Pazar Günü Kontrolü (0 = Pazar)
         const dateObj = new Date(dVal);
         if(dateObj.getDay() === 0) {
             const msg = document.getElementById('slotMsg');
             msg.classList.remove('hidden');
             msg.innerHTML = "⛔ <b>Pazar günleri kapalıyız.</b><br>Lütfen başka bir gün seçiniz.";
             msg.style.color = "#ff4444";
-            
-            dInput.value = ""; // Tarihi sıfırla
-            document.getElementById('slotsContainer').innerHTML = ""; // Saatleri temizle
+            dInput.value = ""; 
+            document.getElementById('slotsContainer').innerHTML = "";
             return;
         }
 
         selectedDate = dVal;
         const c = document.getElementById('slotsContainer');
         const m = document.getElementById('slotMsg');
-        
-        // Normal İşleyiş
-        m.style.color = "var(--gold)"; // Rengi düzelt
+        m.style.color = "var(--gold)";
         c.innerHTML = ""; m.classList.remove('hidden'); m.innerText = "Müsaitlik kontrol ediliyor...";
         
         fetch(API_URL).then(res => res.json()).then(booked => {
