@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        /* --- 1. ÖZELLİK: ARKA PLAN DOKUSU --- */
+        /* --- ARKA PLAN DOKUSU --- */
         body::before {
             content: '';
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -49,14 +49,14 @@
             pointer-events: none;
         }
 
-        /* --- 2. ÖZELLİK: SAHNE IŞIĞI (VIGNETTE) --- */
+        /* SAHNE IŞIĞI */
         .vignette-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, transparent 45%, rgba(0,0,0,0.98) 100%);
             z-index: -1; pointer-events: none;
         }
 
-        /* --- 3. ÖZELLİK: ALTIN ÇERÇEVE --- */
+        /* ALTIN ÇERÇEVE */
         .golden-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -66,46 +66,48 @@
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: radial-gradient(circle at center, rgba(10, 10, 10, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
-        /* --- YENİLENEN İHTİŞAMLI RANDEVU BUTONU --- */
+        /* --- YENİLENEN MİNİMAL VE ZARİF BUTON --- */
         .top-btn { 
-            position: absolute; top: 25px; left: 20px; 
+            position: absolute; top: 20px; left: 20px; 
             
-            /* Metalik Arka Plan */
-            background: linear-gradient(145deg, #000, #1a1a1a);
+            /* Şeffaf ve Zarif */
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
             
-            /* Altın Çerçeve ve Gölge */
-            border: 1px solid #b8860b; 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.1);
+            /* Çok ince altın çerçeve */
+            border: 1px solid rgba(212, 175, 55, 0.5); 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
             
-            padding: 10px 18px; 
-            border-radius: 4px; /* Daha keskin, kartvizit gibi */
+            /* Boyutlar küçüldü */
+            padding: 6px 12px; 
+            border-radius: 4px; /* Hafif yuvarlak köşe */
             
-            /* Yazı Tipi Ayarları */
-            font-family: 'Playfair Display', serif; /* İhtişamlı Serif Font */
-            font-size: 0.85rem; 
-            font-weight: bold; 
-            letter-spacing: 1px;
-            
-            /* Yazı Rengi (Altın Gradyan) */
-            background: -webkit-linear-gradient(#fff, #D4AF37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* Yazı Ayarları */
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem; /* Daha küçük, kibar font */
+            font-weight: 600; 
+            letter-spacing: 2px; /* Harfler arası açık (Luxury Look) */
+            text-transform: uppercase;
             
             cursor: pointer;
             z-index: 2000; 
             touch-action: manipulation;
-            display: flex; align-items: center; gap: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; align-items: center; gap: 6px;
+            transition: all 0.3s;
         }
         
-        .top-btn span {
-            font-size: 1.1rem;
-            filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.8));
-            -webkit-text-fill-color: initial; /* İkonun rengi bozulmasın */
-        }
+        .top-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); }
+        .top-btn span { font-size: 0.9rem; } /* Taç ikonu boyutu */
 
-        .top-btn:active { transform: scale(0.95); }
-        .top-btn:hover { box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
+        /* --- LOGO KONUMU DÜZELTİLDİ (YUKARI ÇEKİLDİ) --- */
+        .logo-img { 
+            width: 140px; height: 140px; 
+            border-radius: 50%; border: 2px solid var(--gold); 
+            box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.15); 
+            object-fit: cover; background-color: #000; 
+            margin-top: 50px; /* 80px'den 50px'e düşürüldü, yukarı çıktı */
+        }
 
         /* --- VIP KART --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
@@ -158,7 +160,6 @@
         .marquee { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); box-shadow: var(--shadow-emboss), 0 0 30px rgba(212, 175, 55, 0.2); object-fit: cover; background-color: #000; margin-top: 80px; }
         .greeting-text { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; margin-bottom: 5px; }
         h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin: 5px 0 35px 0; letter-spacing: 2px; font-size: 2.2rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
 
@@ -458,7 +459,7 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- VIP KART ---
+                // --- GÜNCELLENMİŞ VIP KART ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
