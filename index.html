@@ -66,19 +66,46 @@
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: radial-gradient(circle at center, rgba(10, 10, 10, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%); }
         .container { position: relative; z-index: 10; padding: 20px; }
 
+        /* --- YENİLENEN İHTİŞAMLI RANDEVU BUTONU --- */
         .top-btn { 
             position: absolute; top: 25px; left: 20px; 
-            color: var(--gold); background: rgba(0, 0, 0, 0.8); 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); 
-            padding: 8px 16px; border-radius: 50px; 
-            font-size: 0.8rem; font-weight: 700; 
-            font-family: 'Montserrat', sans-serif;
-            border: 1px solid rgba(212, 175, 55, 0.4); cursor: pointer;
-            z-index: 2000; touch-action: manipulation;
-            display: flex; align-items: center; gap: 6px;
-            letter-spacing: 0.5px; transition: transform 0.2s;
+            
+            /* Metalik Arka Plan */
+            background: linear-gradient(145deg, #000, #1a1a1a);
+            
+            /* Altın Çerçeve ve Gölge */
+            border: 1px solid #b8860b; 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.1);
+            
+            padding: 10px 18px; 
+            border-radius: 4px; /* Daha keskin, kartvizit gibi */
+            
+            /* Yazı Tipi Ayarları */
+            font-family: 'Playfair Display', serif; /* İhtişamlı Serif Font */
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            letter-spacing: 1px;
+            
+            /* Yazı Rengi (Altın Gradyan) */
+            background: -webkit-linear-gradient(#fff, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            cursor: pointer;
+            z-index: 2000; 
+            touch-action: manipulation;
+            display: flex; align-items: center; gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+        
+        .top-btn span {
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.8));
+            -webkit-text-fill-color: initial; /* İkonun rengi bozulmasın */
+        }
+
         .top-btn:active { transform: scale(0.95); }
+        .top-btn:hover { box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
 
         /* --- VIP KART --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
@@ -143,7 +170,7 @@
         .glass-card { background: var(--card-bg); box-shadow: var(--shadow-emboss); border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; cursor: pointer; transition: 0.3s ease; text-align: center; position: relative; display: flex; justify-content: center; align-items: center; z-index: 20; overflow:hidden; }
         .glass-card:active { box-shadow: var(--shadow-inset); }
         
-        /* --- 4. ÖZELLİK: NEON NABIZ EFEKTİ --- */
+        /* NEON NABIZ EFEKTİ */
         @keyframes neonPulse {
             0% { box-shadow: 0 0 5px var(--gold-glow), inset 0 0 5px var(--gold-glow); border-color: rgba(212, 175, 55, 0.5); }
             50% { box-shadow: 0 0 20px var(--gold-glow), inset 0 0 10px var(--gold-glow); border-color: rgba(212, 175, 55, 1); }
@@ -160,7 +187,7 @@
         .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); transform: translateY(-2px); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
-        /* --- 5. ÖZELLİK: OTOMATİK BÜYÜK HARF (CAPITALIZE) --- */
+        /* OTOMATİK BÜYÜK HARF */
         input { 
             width: 100%; padding: 18px; margin-top: 15px; 
             background: #111; box-shadow: var(--shadow-inset); 
@@ -212,8 +239,9 @@
     </div>
 
     <div class="container">
+        
         <button class="top-btn fade-in" onclick="openMyApps()">
-            <span style="font-size: 1rem;">📅</span> Randevularım
+            <span>👑</span> RANDEVULARIM
         </button>
 
         <div class="logo-container fade-in">
@@ -289,7 +317,6 @@
     </div>
 
 <script>
-    // --- API URL --- (Apps Script'ten aldığın link)
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
     // YÜKLEME VE EFEKT AYARLARI
@@ -431,7 +458,7 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- GÜNCELLENMİŞ VIP KART (VALID THRU YOK) ---
+                // --- VIP KART ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
