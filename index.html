@@ -12,48 +12,169 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #0a0a0a; --card: #141414; --gold: #D4AF37; --text: #e0e0e0; --error: #b71c1c; }
-        * { box-sizing: border-box; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; margin: 0; padding: 20px; text-align: center; padding-bottom: 50px; }
-
-        /* LOGO AYARLARI */
-        .logo-container { margin-bottom: 15px; margin-top: 10px; }
-        .logo-img { 
-            max-width: 160px; 
-            height: auto; 
-            border-radius: 50%; 
-            border: 2px solid var(--gold); 
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); 
+        :root {
+            --bg: #0a0a0a; 
+            --card: #141414; 
+            --gold: #D4AF37; 
+            --text: #e0e0e0;
+            --error: #b71c1c;
         }
 
-        h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin-top: 10px; letter-spacing: 1px; text-transform: uppercase; font-size: 1.8rem; }
-        .subtitle { color: #888; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; display: inline-block; }
+        * { box-sizing: border-box; }
 
-        .service-card { background: var(--card); border: 1px solid #333; padding: 25px; margin-bottom: 15px; border-radius: 12px; cursor: pointer; text-align: center; transition: 0.3s; }
-        .service-card.selected { border-color: var(--gold); background: #1a1a1a; box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        .service-card h3 { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            padding-bottom: 50px;
+        }
 
-        .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
-        .time-btn { padding: 10px 5px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-        .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); }
-        .time-btn.disabled { background: rgba(183, 28, 28, 0.1); color: #555; border-color: #331111; cursor: not-allowed; text-decoration: line-through; }
+        /* LOGO AYARLARI */
+        .logo-container {
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        .logo-img {
+            max-width: 160px; /* Logo büyüklüğü */
+            height: auto;
+            border-radius: 50%; /* Yuvarlak Kesim */
+            border: 2px solid var(--gold); /* Altın Çerçeve */
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); /* Hafif Altın Parlama */
+            background-color: #000; /* Resim yüklenirken arka plan siyah olsun */
+        }
 
-        input { width: 100%; padding: 15px; margin-top: 10px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Hizmet Kartları */
+        .service-card {
+            background: var(--card);
+            border: 1px solid #333;
+            padding: 25px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .service-card.selected {
+            border-color: var(--gold);
+            background: #1a1a1a;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .service-card h3 { 
+            margin: 0; 
+            font-size: 1.2rem; 
+            color: #fff; 
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Saat Seçimi */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .time-btn {
+            padding: 10px 5px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .time-btn.selected {
+            background: var(--gold);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--gold);
+        }
+
+        .time-btn.disabled {
+            background: rgba(183, 28, 28, 0.1);
+            color: #555;
+            border-color: #331111;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Form Elemanları */
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+
         input:focus { border-color: var(--gold); }
-        input[type="date"] { color-scheme: dark; }
+        
+        input[type="date"] {
+            color-scheme: dark;
+        }
 
-        .btn-main { background: linear-gradient(45deg, #b8860b, #d4af37); color: #000; width: 100%; padding: 18px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; margin-top: 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-main {
+            background: linear-gradient(45deg, #b8860b, #d4af37);
+            color: #000;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
         .btn-main:disabled { opacity: 0.5; cursor: wait; }
 
         .hidden { display: none; }
         .section-title { color: #fff; margin-top: 0; font-size: 1rem; text-align: left; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        
         #slotMsg { color: var(--gold); font-size: 0.9rem; margin: 10px 0; font-style: italic; }
     </style>
 </head>
 <body>
 
     <div class="logo-container">
-        <img src="https://i.hizliresim.com/39e6z7p.jpg" alt="Berber Fikret Almış Logosu" class="logo-img" onerror="this.src='LOGO.jpg'">
+        <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" alt="Berber Fikret Almış Logosu" class="logo-img">
     </div>
 
     <h1>FİKRET ALMIŞ</h1>
@@ -61,15 +182,28 @@
 
     <div id="step1">
         <h3 class="section-title">HİZMET SEÇİNİZ</h3>
-        <div class="service-card" onclick="selectService('SAÇ KESİM', this)"><h3>SAÇ KESİM</h3></div>
-        <div class="service-card" onclick="selectService('SAÇ SAKAL KESİMİ', this)"><h3>SAÇ SAKAL KESİMİ</h3></div>
-        <div class="service-card" onclick="selectService('VIP SAÇ KESİMİ', this)"><h3>VIP SAÇ KESİMİ</h3></div>
-        <div class="service-card" onclick="selectService('SAKAL KESİMİ', this)"><h3>SAKAL KESİMİ</h3></div>
+        
+        <div class="service-card" onclick="selectService('SAÇ KESİM', this)">
+            <h3>SAÇ KESİM</h3>
+        </div>
+
+        <div class="service-card" onclick="selectService('SAÇ SAKAL KESİMİ', this)">
+            <h3>SAÇ SAKAL KESİMİ</h3>
+        </div>
+
+        <div class="service-card" onclick="selectService('VIP SAÇ KESİMİ', this)">
+            <h3>VIP SAÇ KESİMİ</h3>
+        </div>
+
+        <div class="service-card" onclick="selectService('SAKAL KESİMİ', this)">
+            <h3>SAKAL KESİMİ</h3>
+        </div>
     </div>
 
     <div id="step2" class="hidden" style="margin-top: 40px;">
         <h3 class="section-title">TARİH & SAAT</h3>
         <input type="date" id="datePicker" onchange="loadSlots()">
+        
         <p id="slotMsg" class="hidden">Saatler kontrol ediliyor...</p>
         <div class="time-slots" id="slotsContainer"></div>
     </div>
@@ -78,10 +212,12 @@
         <h3 class="section-title">İLETİŞİM BİLGİLERİ</h3>
         <input type="text" id="name" placeholder="Adınız Soyadınız">
         <input type="text" id="phone" placeholder="Telefon (05XX...)">
+        
         <button class="btn-main" onclick="bookAppointment()">Randevuyu Onayla</button>
     </div>
 
 <script>
+    // ARKA PLAN BAĞLANTISI (GOOGLE APPS SCRIPT)
     const API_URL = "https://script.google.com/macros/s/AKfycbzX5c2-5caXXOg32A2oEYbNI2Fv595hK4d6qw4Xuw26g6K4neixzWabXZacbQg3ynceIA/exec";
     
     let selectedService = "";
@@ -91,16 +227,20 @@
     function selectService(name, el) {
         document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
+        
         selectedService = name;
+        
         document.getElementById('step2').classList.remove('hidden');
         
+        // Tarih seçiciye bugünü ata
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('datePicker');
         if(!dateInput.value) {
             dateInput.value = today;
             dateInput.min = today;
-            loadSlots();
+            loadSlots(); // Bugünün saatlerini getir
         }
+        
         document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
     }
 
@@ -121,21 +261,32 @@
         .then(bookedList => {
             msg.classList.add('hidden');
             
-            // 30 DAKİKALIK DİLİMLER
+            // 30 DAKİKALIK SAAT DİLİMLERİ (09:00 - 22:00)
             const hours = [
-                "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-                "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-                "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-                "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
-                "21:00", "21:30", "22:00"
+                "09:00", "09:30",
+                "10:00", "10:30",
+                "11:00", "11:30",
+                "12:00", "12:30",
+                "13:00", "13:30",
+                "14:00", "14:30",
+                "15:00", "15:30",
+                "16:00", "16:30",
+                "17:00", "17:30",
+                "18:00", "18:30",
+                "19:00", "19:30",
+                "20:00", "20:30",
+                "21:00", "21:30",
+                "22:00"
             ];
             
             hours.forEach(time => {
                 const btn = document.createElement('div');
                 btn.className = 'time-btn';
                 btn.innerText = time;
+                
                 const checkKey = selectedDate + "_" + time;
                 
+                // Eğer bu saat doluysa KIRMIZI yap
                 if(bookedList.includes(checkKey)) {
                     btn.classList.add('disabled');
                     btn.title = "Bu saat dolu";
@@ -146,16 +297,18 @@
             });
         })
         .catch(err => {
-            msg.innerText = "Bağlantı hatası.";
+            msg.innerText = "Bağlantı hatası. Lütfen sayfayı yenileyin.";
             console.error(err);
         });
     }
 
     function selectTime(time, el) {
         if(el.classList.contains('disabled')) return;
+        
         document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
         el.classList.add('selected');
         selectedTime = time;
+        
         document.getElementById('step3').classList.remove('hidden');
         document.getElementById('step3').scrollIntoView({behavior: 'smooth'});
     }
@@ -165,9 +318,12 @@
         const phone = document.getElementById('phone').value;
         const btn = document.querySelector('.btn-main');
 
-        if(!name || !phone) { alert("Lütfen İsim ve Telefon giriniz."); return; }
+        if(!name || !phone) {
+            alert("Lütfen İsim ve Telefon giriniz.");
+            return;
+        }
 
-        btn.innerText = "İŞLENİYOR...";
+        btn.innerText = "İŞLENİYOR LÜTFEN BEKLEYİN...";
         btn.disabled = true;
 
         const data = {
@@ -181,7 +337,9 @@
         fetch(API_URL, {
             method: "POST",
             body: JSON.stringify(data),
-            headers: { "Content-Type": "text/plain;charset=utf-8" }
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            }
         })
         .then(res => res.json())
         .then(response => {
@@ -197,7 +355,7 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            alert("Sunucu hatası.");
+            alert("Sunucu hatası oluştu. Lütfen tekrar deneyin.");
             btn.disabled = false;
             btn.innerText = "TEKRAR DENE";
         });
