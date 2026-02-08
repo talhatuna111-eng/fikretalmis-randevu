@@ -36,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* --- VIP KART TASARIMI (GÜNCELLENDİ) --- */
+        /* --- VIP KART TASARIMI --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 10px; width: 100%; display: flex; justify-content: center; }
         .vip-card {
             width: 100%; max-width: 340px; height: 200px;
@@ -63,7 +63,6 @@
         .card-chip::before { content: ''; position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: rgba(0,0,0,0.3); }
         .card-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: bold; opacity: 0.9; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
-        /* Yeni Eklenen Alanlar */
         .card-center { margin-top: 20px; }
         .card-customer-name { 
             font-family: 'Playfair Display', serif; 
@@ -396,12 +395,14 @@
             listDiv.innerHTML = "";
             if(data.length === 0) listDiv.innerHTML = "<p style='color:#fff; font-size:1.1rem;'>Kayıt bulunamadı.</p>";
             else {
-                // VIP KART OLUŞTURMA (DÜZELTİLDİ)
+                // VIP KART OLUŞTURMA (GÜN.AY.YIL FORMATI EKLENDİ)
                 let customerName = "DEĞERLİ MÜŞTERİ";
                 if(data[0].isim) customerName = data[0].isim.toUpperCase();
                 
-                // En son randevu tarihini al (Listedeki ilk kayıt en yenisidir backend'de reverse yapıldığı için)
-                let lastDate = data[0].tarih + " • " + data[0].saat;
+                // Tarihi Gün.Ay.Yıl formatına çevir (Backend'den YYYY-MM-DD gelir)
+                let rawDate = data[0].tarih.split('-'); 
+                let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
+                let lastDate = fixDate + " • " + data[0].saat;
 
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
