@@ -77,23 +77,22 @@
             margin-top: 40px; 
         }
 
-        /* --- SAĞ ÜST MİNİMAL BUTON (YENİ) --- */
+        /* --- SAĞ ÜST MİNİMAL BUTON --- */
         .top-right-btn {
             position: absolute;
             top: 25px;
             right: 20px;
             
-            /* Minimalist Stil */
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(212, 175, 55, 0.3); /* Çok ince çerçeve */
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--gold);
             
             padding: 8px 12px;
             border-radius: 6px;
             
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem; /* Küçük font */
+            font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 1px;
             
@@ -181,7 +180,17 @@
         .glass-card.selected { background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.02); animation: neonPulse 2s infinite ease-in-out; }
         .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
 
-        .section-title { color:#fff; text-align:left; font-size:1rem; margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px; letter-spacing: 1px; margin-top: 20px; color: var(--gold); }
+        /* --- DÜZELTİLDİ: ORTALI BAŞLIK --- */
+        .section-title { 
+            color: var(--gold); 
+            text-align: center; /* ORTALANDI */
+            font-size: 1rem; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 10px; 
+            letter-spacing: 1px; 
+            margin-top: 20px; 
+        }
         .card-title { font-size: 1.2rem; color: #fff; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
 
         .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; position: relative; z-index: 20;}
