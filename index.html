@@ -82,20 +82,16 @@
             position: absolute;
             top: 25px;
             right: 20px;
-            
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--gold);
-            
             padding: 8px 12px;
             border-radius: 6px;
-            
             font-family: 'Montserrat', sans-serif;
             font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 1px;
-            
             display: flex;
             align-items: center;
             gap: 5px;
@@ -103,11 +99,7 @@
             z-index: 2000;
             transition: all 0.3s ease;
         }
-
-        .top-right-btn:hover {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--gold);
-        }
+        .top-right-btn:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); }
 
         /* --- VIP KART --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
@@ -133,12 +125,18 @@
         }
         @keyframes shine { from { transform: translateX(-100%) rotate(30deg); } to { transform: translateX(100%) rotate(30deg); } }
 
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-        .card-chip { width: 45px; height: 32px; background: linear-gradient(135deg, #e6c55c 0%, #b88a28 100%); border-radius: 5px; position: relative; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.5); }
-        .card-chip::before { content:''; position:absolute; left:50%; top:0; width:1px; height:100%; background:rgba(0,0,0,0.2); }
-        .card-chip::after { content:''; position:absolute; top:50%; left:0; width:100%; height:1px; background:rgba(0,0,0,0.2); }
-        .card-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: 1px; color: #D4AF37; text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+        /* HEADER DÜZENİ: SADECE SOLDA LOGO */
+        .card-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
         
+        /* ÇİP YERİNE LOGO (logo-chip.png) */
+        .card-logo-chip {
+            width: 70px; 
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
+        }
+
+        /* ORTA KISIM: TARİH VE SAAT */
         .card-number-display { 
             font-family: 'Courier New', monospace; font-size: 1.35rem; font-weight: bold; color: #f0e68c; 
             letter-spacing: 2px; text-align: center; text-shadow: 0 2px 2px rgba(0,0,0,0.9); margin: 15px 0; white-space: nowrap; 
@@ -180,10 +178,10 @@
         .glass-card.selected { background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.02); animation: neonPulse 2s infinite ease-in-out; }
         .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
 
-        /* --- DÜZELTİLDİ: ORTALI BAŞLIK --- */
+        /* ORTALI BAŞLIK */
         .section-title { 
             color: var(--gold); 
-            text-align: center; /* ORTALANDI */
+            text-align: center; 
             font-size: 1rem; 
             margin-bottom: 15px; 
             border-bottom: 1px solid rgba(255,255,255,0.1); 
@@ -469,13 +467,12 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- VIP KART ---
+                // --- VIP KART (SADECE SOL ÜSTTE LOGO) ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
                         <div class="card-header">
-                            <div class="card-chip"></div>
-                            <div class="card-brand">FİKRET ALMIŞ</div>
+                            <img src="logo-chip.png" class="card-logo-chip" alt="Chip Logo">
                         </div>
                         
                         <div class="card-number-display">${mainDisplay}</div>
