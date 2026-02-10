@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fikret Almış | Exclusive</title>
+    
+    <title>FİKRET ALMIŞ</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/wF32Gj5T/LOGO.png">
@@ -94,14 +95,22 @@
             letter-spacing: 1px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px; /* İkon ve yazı arası boşluk */
             cursor: pointer;
             z-index: 2000;
             transition: all 0.3s ease;
         }
         .top-right-btn:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); }
+        
+        /* ÖZEL MAKAS İKONU AYARI */
+        .btn-scissor-icon {
+            width: 18px; /* Boyut ayarlandı */
+            height: auto;
+            /* Hafif parlama efekti */
+            filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
+        }
 
-        /* --- VIP KART --- */
+        /* --- VIP KART STİLLERİ --- */
         .vip-card-container { perspective: 1000px; margin-bottom: 30px; margin-top: 20px; width: 100%; display: flex; justify-content: center; position: relative; z-index: 20; }
         
         .vip-card { 
@@ -125,16 +134,14 @@
         }
         @keyframes shine { from { transform: translateX(-100%) rotate(30deg); } to { transform: translateX(100%) rotate(30deg); } }
 
-        /* HEADER: SADECE LOGO VAR */
         .card-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
         
-        /* KART ÜZERİNDEKİ LOGO (Ana Logo Kullanıldı) */
         .card-logo-chip {
-            width: 55px; /* İdeal boyut */
+            width: 55px; 
             height: 55px;
             object-fit: cover;
             border-radius: 50%;
-            border: 1px solid var(--gold); /* İnce altın çerçeve */
+            border: 1px solid var(--gold);
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
@@ -170,7 +177,6 @@
         .glass-card { background: var(--card-bg); box-shadow: var(--shadow-emboss); border: 1px solid rgba(212, 175, 55, 0.05); padding: 25px; margin-bottom: 20px; border-radius: 16px; cursor: pointer; transition: 0.3s ease; text-align: center; position: relative; display: flex; justify-content: center; align-items: center; z-index: 20; overflow:hidden; }
         .glass-card:active { box-shadow: var(--shadow-inset); }
         
-        /* NEON NABIZ EFEKTİ */
         @keyframes neonPulse {
             0% { box-shadow: 0 0 5px var(--gold-glow), inset 0 0 5px var(--gold-glow); border-color: rgba(212, 175, 55, 0.5); }
             50% { box-shadow: 0 0 20px var(--gold-glow), inset 0 0 10px var(--gold-glow); border-color: rgba(212, 175, 55, 1); }
@@ -179,7 +185,6 @@
         .glass-card.selected { background: linear-gradient(145deg, #1a1a1a, #0d0d0d); transform: scale(1.02); animation: neonPulse 2s infinite ease-in-out; }
         .glass-card.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
 
-        /* ORTALI BAŞLIK */
         .section-title { 
             color: var(--gold); 
             text-align: center; 
@@ -197,7 +202,6 @@
         .time-btn.selected { background: var(--gold); color: #000; font-weight: bold; border-color: var(--gold); transform: translateY(-2px); }
         .time-btn.disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; box-shadow: none; background: #111; }
 
-        /* OTOMATİK BÜYÜK HARF */
         input { 
             width: 100%; padding: 18px; margin-top: 15px; 
             background: #111; box-shadow: var(--shadow-inset); 
@@ -251,7 +255,8 @@
     <div class="container">
         
         <div class="top-right-btn fade-in" onclick="openMyApps()">
-            <span>👑</span> RANDEVULARIM
+            <img src="https://i.ibb.co/nqFJ69Vs/Gemini-Generated-mage-bp73s1bp73s1bp73-removebg-preview.png" class="btn-scissor-icon">
+            <span>RANDEVULARIM</span>
         </div>
 
         <div class="logo-container fade-in">
@@ -468,12 +473,12 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- GÜNCELLENEN VIP KART ---
+                // --- VIP KART (SADECE SOL ÜSTTE LOGO) ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
                         <div class="card-header">
-                            <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="card-logo-chip" alt="Fikret Almış Logo">
+                            <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="card-logo-chip" alt="Chip Logo">
                         </div>
                         
                         <div class="card-number-display">${mainDisplay}</div>
