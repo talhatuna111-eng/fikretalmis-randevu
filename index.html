@@ -78,33 +78,33 @@
             margin-top: 40px; 
         }
 
-        /* --- SAĞ ÜST MİNİMAL BUTON --- */
+        /* --- SAĞ ÜST MİNİMAL BUTON (GÜNCELLENDİ: Daha Dar ve Köşede) --- */
         .top-right-btn {
             position: absolute;
-            top: 25px;
-            right: 20px;
+            top: 15px; /* Daha yukarı alındı */
+            right: 15px; /* Daha sağa alındı */
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--gold);
-            padding: 8px 12px;
+            padding: 6px 10px; /* Padding azaltıldı (daha dar) */
             border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.6rem; /* Yazı boyutu biraz küçüldü */
             font-weight: 600;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
-            gap: 8px; /* İkon ve yazı arası boşluk */
+            gap: 5px; /* İkon ve yazı arası boşluk azaltıldı */
             cursor: pointer;
             z-index: 2000;
             transition: all 0.3s ease;
         }
         .top-right-btn:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); }
         
-        /* ÖZEL MAKAS İKONU AYARI */
+        /* ÖZEL MAKAS İKONU AYARI (KÜÇÜLTÜLDÜ) */
         .btn-scissor-icon {
-            width: 18px; /* Boyut ayarlandı */
+            width: 14px; /* Boyut küçültüldü */
             height: auto;
             /* Hafif parlama efekti */
             filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
