@@ -125,18 +125,19 @@
         }
         @keyframes shine { from { transform: translateX(-100%) rotate(30deg); } to { transform: translateX(100%) rotate(30deg); } }
 
-        /* HEADER DÜZENİ: SADECE SOLDA LOGO */
+        /* HEADER: SADECE LOGO VAR */
         .card-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
         
-        /* ÇİP YERİNE LOGO (logo-chip.png) */
+        /* KART ÜZERİNDEKİ LOGO (Ana Logo Kullanıldı) */
         .card-logo-chip {
-            width: 70px; 
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
+            width: 55px; /* İdeal boyut */
+            height: 55px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid var(--gold); /* İnce altın çerçeve */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* ORTA KISIM: TARİH VE SAAT */
         .card-number-display { 
             font-family: 'Courier New', monospace; font-size: 1.35rem; font-weight: bold; color: #f0e68c; 
             letter-spacing: 2px; text-align: center; text-shadow: 0 2px 2px rgba(0,0,0,0.9); margin: 15px 0; white-space: nowrap; 
@@ -467,12 +468,12 @@
                 let fixDate = rawDate[2] + "." + rawDate[1] + "." + rawDate[0];
                 let mainDisplay = fixDate + " • " + data[0].saat;
 
-                // --- VIP KART (SADECE SOL ÜSTTE LOGO) ---
+                // --- GÜNCELLENEN VIP KART ---
                 const vipCardHTML = `
                 <div class="vip-card-container fade-in">
                     <div class="vip-card">
                         <div class="card-header">
-                            <img src="logo-chip.png" class="card-logo-chip" alt="Chip Logo">
+                            <img src="https://i.ibb.co/wF32Gj5T/LOGO.png" class="card-logo-chip" alt="Fikret Almış Logo">
                         </div>
                         
                         <div class="card-number-display">${mainDisplay}</div>
